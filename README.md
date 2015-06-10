@@ -3,8 +3,8 @@ Commandline diceware, sans dice, written in rust.
 
 Mirrors at:
 
-* [Gitlab]
-* [Github]
+* [Gitlab][gitlab-mirror]
+* [Github][github-mirror]
 
 
 [gitlab-mirror]: <https://gitlab.com/yuvallanger/rusty-diceware/>
