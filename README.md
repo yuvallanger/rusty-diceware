@@ -1,5 +1,5 @@
 # rusty-diceware - a password generator using the diceware word lists
-Commandline [[diceware, sans dice, written in rust.
+Commandline [Diceware][diceware], sans dice, written in [rustlang][rustlang].
 
 
 Inspired by the great passphrase generating solution [Diceware][diceware] invented by [Arnold G. Reinhold][arnold] and by Randall Monroe’s [xkcd#936][https://xkcd.com/936/]:
@@ -17,3 +17,4 @@ Inspired by the great passphrase generating solution [Diceware][diceware] invent
 [github-mirror]: <https://github.com/yuvallanger/rusty-diceware/>
 [arnold]: <http://world.std.com/~reinhold/>
 [diceware]: <http://world.std.com/~reinhold/diceware.html>
+[rustlang]: <http://rust-lang.org>
