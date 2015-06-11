@@ -2,9 +2,9 @@
 Commandline [[diceware, sans dice, written in rust.
 
 
-Inspired by https://xkcd.com/936/:
+Inspired by the great passphrase generating solution [Diceware][diceware] invented by [Arnold G. Reinhold][arnold] and by Randall Monroe’s [xkcd#936][https://xkcd.com/936/]:
 
-![?](/bin/imgs.xkcd.com/comics/password_strength.png)
+![“Hidden” alt text jokes are a pain in the ass.](/bin/imgs.xkcd.com/comics/password_strength.png)
 
 
 ## Mirrors
@@ -15,3 +15,5 @@ Inspired by https://xkcd.com/936/:
 
 [gitlab-mirror]: <https://gitlab.com/yuvallanger/rusty-diceware/>
 [github-mirror]: <https://github.com/yuvallanger/rusty-diceware/>
+[arnold]: <http://world.std.com/~reinhold/>
+[diceware]: <http://world.std.com/~reinhold/diceware.html>
