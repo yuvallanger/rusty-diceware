@@ -4,7 +4,7 @@ use std::io::Read;
 use rand::Rng;
 
 fn main() {
-    let beale_contents = include_str!("../beale.wordlist.asc");
+    let beale_contents = include_str!("../bin/wordlists/beale.wordlist.asc");
 
     let v: Vec<_> = beale_contents.split('\n')
         .skip(2)
