@@ -1,7 +1,13 @@
-# rusty-diceware
-Commandline diceware, sans dice, written in rust.
+# rusty-diceware - a password generator using the diceware word lists
+Commandline [[diceware, sans dice, written in rust.
 
-Mirrors at:
+
+Inspired by https://xkcd.com/936/:
+
+![?](/bin/imgs.xkcd.com/comics/password_strength.png)
+
+
+## Mirrors
 
 * [Gitlab][gitlab-mirror]
 * [Github][github-mirror]
