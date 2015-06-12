@@ -1,6 +1,7 @@
 extern crate rand;
 extern crate getopts;
 
+
 //use std::env;
 //use std::io::Read;
 // use std::fs::File;
@@ -11,37 +12,23 @@ use rand::Rng;
 mod diceware {
     extern crate rand;
 
-    const BEALE_CONTENTS: &'static str = include_str!("../bin/wordlists/beale.wordlist.asc");
-    const REINHOLD_CONTENTS: &'static str = include_str!("../bin/wordlists/diceware.wordlist.asc");
+    include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
 
+    #[derive(Debug,Copy,Clone)]
+    pub struct BealeWord(&'static str);
 
-    fn make_wordlist(contents: &str) -> Vec<&str> {
-        contents.split('\n')
-            .skip(2)
-            .take(7776)
-            .map(|s| s.splitn(2, '\t').nth(1).unwrap())
-            .collect()
-    }
-
-    #[derive(Debug)]
-    pub struct BealeWord (&'static str);
-
-    #[derive(Debug)]
-    pub struct ReinholdWord (&'static str);
+    #[derive(Debug,Copy,Clone)]
+    pub struct ReinholdWord(&'static str);
 
     impl rand::Rand for BealeWord {
         fn rand<R: rand::Rng>(rng: &mut R) -> BealeWord {
-            let wordlist = make_wordlist(BEALE_CONTENTS);
-            let c = rng.choose(&wordlist);
-            BealeWord(c.unwrap())
+            rng.choose(&BEALE_WORDLIST).unwrap().clone()
         }
     }
 
     impl rand::Rand for ReinholdWord {
         fn rand<R: rand::Rng>(rng: &mut R) -> ReinholdWord {
-            let wordlist = make_wordlist(REINHOLD_CONTENTS);
-            let c = rng.choose(&wordlist);
-            ReinholdWord(c.unwrap())
+            rng.choose(&REINHOLD_WORDLIST).unwrap().clone()
         }
     }
 }
