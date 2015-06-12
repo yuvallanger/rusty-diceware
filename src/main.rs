@@ -16,11 +16,23 @@ mod diceware {
 
     include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
 
-    #[derive(Debug,Clone)]
+    #[derive(Debug,Clone,Eq,PartialEq)]
     pub struct BealeWord(&'static str);
 
-    #[derive(Debug,Clone)]
+    #[derive(Debug,Clone,Eq,PartialEq)]
     pub struct ReinholdWord(&'static str);
+
+    impl BealeWord {
+        pub fn new(word: &'static str) -> BealeWord {
+            BealeWord(word.clone())
+        }
+    }
+
+    impl ReinholdWord {
+        pub fn new(word: &'static str) -> ReinholdWord {
+            ReinholdWord(word.clone())
+        }
+    }
 
     impl rand::Rand for BealeWord {
         fn rand<R: rand::Rng>(rng: &mut R) -> BealeWord {
@@ -78,6 +90,7 @@ fn print_usage(program: &str, opts: Options) {
 
 */
 
+#[cfg(not(test))]
 fn main() {
     /*
     let args: Vec<String> = env::args().collect();
@@ -109,4 +122,39 @@ fn main() {
         print!("{} ", word);
     }
     println!("");
+}
+
+#[cfg(test)]
+mod test {
+    extern crate rand;
+
+    use rand::{Rng, SeedableRng, StdRng};
+
+    use diceware::{ReinholdWord, BealeWord};
+
+    fn make_beale_word() -> BealeWord {
+        let seed: &[_] = &[1, 2, 3, 4];
+        let mut rng: StdRng = SeedableRng::from_seed(seed);
+        let word = rng.gen();
+        word
+    }
+
+    fn make_reinhold_word() -> ReinholdWord {
+        let seed: &[_] = &[1, 2, 3, 4];
+        let mut rng: StdRng = SeedableRng::from_seed(seed);
+        let word = rng.gen();
+        word
+    }
+
+    #[test]
+    fn beale_rng_test() {
+        let rand_word = make_beale_word();
+        assert_eq!(rand_word, BealeWord::new("ladder"))
+    }
+
+    #[test]
+    fn reinhold_rng_test() {
+        let rand_word = make_reinhold_word();
+        assert_eq!(rand_word, ReinholdWord::new("ks"))
+    }
 }
