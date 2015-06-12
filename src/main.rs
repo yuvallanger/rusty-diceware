@@ -17,10 +17,10 @@ mod diceware {
     include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
 
     #[derive(Debug,Clone)]
-    pub struct BealeWord(pub &'static str);
+    pub struct BealeWord(&'static str);
 
     #[derive(Debug,Clone)]
-    pub struct ReinholdWord(pub &'static str);
+    pub struct ReinholdWord(&'static str);
 
     impl rand::Rand for BealeWord {
         fn rand<R: rand::Rng>(rng: &mut R) -> BealeWord {
@@ -105,7 +105,7 @@ fn main() {
     */
     let mut rng = rand::OsRng::new().unwrap();
     for _ in 1..8 {
-        let diceware::BealeWord(word) = rng.gen();
+        let word: diceware::BealeWord = rng.gen();
         print!("{} ", word);
     }
     println!("");
