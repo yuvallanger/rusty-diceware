@@ -12,13 +12,15 @@ use rand::Rng;
 mod diceware {
     extern crate rand;
 
+    use std::fmt;
+
     include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
 
-    #[derive(Debug,Copy,Clone)]
-    pub struct BealeWord(&'static str);
+    #[derive(Debug,Clone)]
+    pub struct BealeWord(pub &'static str);
 
-    #[derive(Debug,Copy,Clone)]
-    pub struct ReinholdWord(&'static str);
+    #[derive(Debug,Clone)]
+    pub struct ReinholdWord(pub &'static str);
 
     impl rand::Rand for BealeWord {
         fn rand<R: rand::Rng>(rng: &mut R) -> BealeWord {
@@ -26,9 +28,25 @@ mod diceware {
         }
     }
 
+    impl fmt::Display for BealeWord {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            match self {
+                &BealeWord(w) => write!(f, "{}", w)
+            }
+        }
+    }
+
     impl rand::Rand for ReinholdWord {
         fn rand<R: rand::Rng>(rng: &mut R) -> ReinholdWord {
             rng.choose(&REINHOLD_WORDLIST).unwrap().clone()
+        }
+    }
+
+    impl fmt::Display for ReinholdWord {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            match self {
+                &ReinholdWord(w) => write!(f, "{}", w)
+            }
         }
     }
 }
@@ -86,6 +104,9 @@ fn main() {
     };
     */
     let mut rng = rand::OsRng::new().unwrap();
-    let word: diceware::BealeWord = rng.gen();
-    println!("{:?}", word);
+    for _ in 1..8 {
+        let diceware::BealeWord(word) = rng.gen();
+        print!("{} ", word);
+    }
+    println!("");
 }
