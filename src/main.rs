@@ -22,6 +22,9 @@ mod diceware {
     #[derive(Debug,Clone,Eq,PartialEq)]
     pub struct ReinholdWord(&'static str);
 
+    #[derive(Debug,Clone,Eq,PartialEq)]
+    pub struct MiniLockWord(&'static str);
+
     impl BealeWord {
         pub fn new(word: &'static str) -> BealeWord {
             BealeWord(word.clone())
@@ -58,6 +61,20 @@ mod diceware {
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
             match self {
                 &ReinholdWord(w) => write!(f, "{}", w)
+            }
+        }
+    }
+
+    impl rand::Rand for MiniLockWord {
+        fn rand<R: rand::Rng>(rng: &mut R) -> MiniLockWord {
+            rng.choose(&MINILOCK_WORDLIST).unwrap().clone()
+        }
+    }
+
+    impl fmt::Display for MiniLockWord {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            match self {
+                &MiniLockWord(w) => write!(f, "{}", w)
             }
         }
     }
@@ -116,12 +133,32 @@ fn main() {
         }
     };
     */
+
     let mut rng = rand::OsRng::new().unwrap();
+
+    println!("Beale:");
     for _ in 1..8 {
         let word: diceware::BealeWord = rng.gen();
         print!("{} ", word);
     }
     println!("");
+    println!("");
+
+    println!("Reinhold:");
+    for _ in 1..8 {
+        let word: diceware::ReinholdWord = rng.gen();
+        print!("{} ", word);
+    }
+    println!("");
+    println!("");
+
+    println!("MiniLock:");
+    for _ in 1..8 {
+        let word: diceware::MiniLockWord = rng.gen();
+        print!("{} ", word);
+    }
+    println!("");
+
 }
 
 #[cfg(test)]
