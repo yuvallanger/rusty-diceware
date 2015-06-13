@@ -13,6 +13,13 @@ fn make_wordlist(contents: &std::string::String) -> Vec<&str> {
         .collect()
 }
 
+fn make_minilock_wordlist(contents: &std::string::String) -> Vec<&str> {
+    contents.split(',')
+        .skip(3)
+        .take(58109)
+        .collect()
+}
+
 fn make_beale_struct(wordlist: Vec<&str>) -> std::string::String {
     let mut output = std::string::String::new();
     output.push_str("const BEALE_WORDLIST: [BealeWord; 7776] = [\n");
@@ -55,12 +62,15 @@ fn main() {
     let wordlists_dir = Path::new(&manifest_dir).join("bin").join("wordlists");
     let mut beale_wordlist_file = File::open(&wordlists_dir.join("beale.wordlist.asc")).unwrap();
     let mut reinhold_wordlist_file = File::open(&wordlists_dir.join("diceware.wordlist.asc")).unwrap();
+    let mut minilock_wordlist_file = File::open(&wordlists_dir.join("phrase.js"));
 
     let mut beale_wordlist_string = String::new();
     let mut reinhold_wordlist_string = String::new();
+    let mut minilock_wordlist_string = String::new();
 
     beale_wordlist_file.read_to_string(&mut beale_wordlist_string);
     reinhold_wordlist_file.read_to_string(&mut reinhold_wordlist_string);
+    minilock_wordlist_file.read_to_string(&mut minilock_wordlist_string);
 
     let out_dir = env::var("OUT_DIR").unwrap();
     let dest_path = Path::new(&out_dir).join("diceware.rs");
@@ -72,5 +82,9 @@ fn main() {
 
     f.write_all(
         make_reinhold_struct(make_wordlist(&reinhold_wordlist_string)).as_bytes()
+    ).unwrap();
+
+    f.write_all(
+        make_minilock_struct(make_minilock_wordlist(&minilock_wordlist_string)).as_bytes()
     ).unwrap();
 }
