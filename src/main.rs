@@ -18,4 +18,5 @@ fn main() {
         print!("{} ", c.unwrap());
     }
     println!("");
+    println!("Passphrase entropy: {:.1}", (v.len() as f32).log2());
 }
