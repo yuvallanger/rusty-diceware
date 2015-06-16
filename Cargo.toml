@@ -5,7 +5,9 @@ authors = ["Yuval Langer <yuval.langer@gmail.com>"]
 build = "build.rs"
 license = "AGPL-3.0"
 repository = "https://gitlab.com/yuvallanger/rusty-diceware"
-description = ""
+description = "A command line diceware, sans dice."
+keywords = ["diceware", "password", "passphrase", "generator"]
+readme = "README.md"
 
 
 [dependencies]
