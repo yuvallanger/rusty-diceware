@@ -26,17 +26,6 @@ fn make_options() -> Options {
 }
 
 
-fn print_passphrase(wordlist: Vec<&str>, word_num: u64) -> () {
-    let mut rng = rand::OsRng::new().unwrap();
-    let mut c = rng.choose(&wordlist);
-    for _ in 0..word_num-1 {
-        print!("{} ", c.unwrap());
-        c = rng.choose(&wordlist);
-    }
-    println!("{}", c.unwrap());
-}
-
-
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {} [options]", program);
     print!("{}", opts.usage(&brief));
