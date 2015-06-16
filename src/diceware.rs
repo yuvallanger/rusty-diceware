@@ -14,14 +14,47 @@ pub struct ReinholdWord(&'static str);
 pub struct MiniLockWord(&'static str);
 
 impl BealeWord {
+    #[cfg(test)]
     pub fn new(word: &'static str) -> BealeWord {
         BealeWord(word.clone())
+    }
+
+    pub fn entropy() -> f64 {
+        (BEALE_WORDLIST.len() as f64).log2()
+    }
+
+    pub fn entropyn(n: u64) -> f64 {
+        BealeWord::entropy() * (n as f64)
     }
 }
 
 impl ReinholdWord {
+    #[cfg(test)]
     pub fn new(word: &'static str) -> ReinholdWord {
         ReinholdWord(word.clone())
+    }
+
+    pub fn entropy() -> f64 {
+        (REINHOLD_WORDLIST.len() as f64).log2()
+    }
+
+    pub fn entropyn(n: u64) -> f64 {
+        ReinholdWord::entropy() * (n as f64)
+    }
+}
+
+impl MiniLockWord {
+    #[cfg(test)]
+    pub fn new(word: &'static str) -> MiniLockWord {
+        MiniLockWord(word.clone())
+    }
+
+    pub fn entropy() -> f64 {
+        (MINILOCK_WORDLIST.len() as f64).log2()
+    }
+
+    pub fn entropyn(n: u64) -> f64 {
+        MiniLockWord::entropy() * (n as f64)
     }
 }
 

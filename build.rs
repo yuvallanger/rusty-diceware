@@ -22,6 +22,8 @@ fn make_minilock_wordlist(contents: &str) -> Vec<&str> {
 
 fn make_beale_struct(wordlist: Vec<&str>) -> std::string::String {
     let mut output = std::string::String::new();
+
+    // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
     output.push_str("const BEALE_WORDLIST: [BealeWord; 7776] = [\n");
     for word in wordlist {
         output.push_str("    BealeWord(\"");
@@ -40,6 +42,8 @@ fn make_beale_struct(wordlist: Vec<&str>) -> std::string::String {
 
 fn make_reinhold_struct(wordlist: Vec<&str>) -> std::string::String {
     let mut output = std::string::String::new();
+
+    // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
     output.push_str("const REINHOLD_WORDLIST: [ReinholdWord; 7776] = [\n");
     for word in wordlist {
         output.push_str("    ReinholdWord(\"");
@@ -58,6 +62,8 @@ fn make_reinhold_struct(wordlist: Vec<&str>) -> std::string::String {
 
 fn make_minilock_struct(wordlist: Vec<&str>) -> std::string::String {
     let mut output = std::string::String::new();
+
+    // 58110 words in the MiniLock wordlist.
     output.push_str("const MINILOCK_WORDLIST: [MiniLockWord; 58110] = [\n");
     for word in wordlist {
         output.push_str("    MiniLockWord(\"");
