@@ -15,9 +15,7 @@ fn make_wordlist(contents: &std::string::String) -> Vec<&str> {
 }
 
 fn make_minilock_wordlist(contents: &str) -> Vec<&str> {
-    unsafe {
-       contents.slice_unchecked(1023, 543718).split(',').collect()
-    }
+    (&contents[1023..543718]).split(',').collect()
 }
 
 fn make_beale_struct(wordlist: Vec<&str>) -> std::string::String {
