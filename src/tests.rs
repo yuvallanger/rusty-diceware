@@ -2,30 +2,52 @@ extern crate rand;
 
 use rand::{Rng, SeedableRng, StdRng};
 
-use diceware::{ReinholdWord, BealeWord};
+use diceware::{BealeWord, ReinholdWord};
 
-fn make_beale_word() -> BealeWord {
-    let seed: &[_] = &[1, 2, 3, 4];
+fn make_beale_vector() -> Vec<BealeWord> {
+    let seed: [u8; 32] = [0; 32];
     let mut rng: StdRng = SeedableRng::from_seed(seed);
-    let word = rng.gen();
-    word
+
+    let mut beale_vector: Vec<BealeWord> = vec![];
+    for _ in 0..4 {
+        let word: BealeWord = rng.gen();
+        beale_vector.push(word);
+    }
+    beale_vector
 }
 
-fn make_reinhold_word() -> ReinholdWord {
-    let seed: &[_] = &[1, 2, 3, 4];
+fn make_reinhold_vector() -> Vec<ReinholdWord> {
+    let seed: [u8; 32] = [0; 32];
     let mut rng: StdRng = SeedableRng::from_seed(seed);
-    let word = rng.gen();
-    word
+
+    let mut reinhold_vector: Vec<ReinholdWord> = vec![];
+    for _ in 0..4 {
+        let word: ReinholdWord = rng.gen();
+        reinhold_vector.push(word);
+    }
+    reinhold_vector
 }
 
 #[test]
 fn beale_rng_test() {
-    let rand_word = make_beale_word();
-    assert_eq!(rand_word, BealeWord::new("ladder"))
+    let wanted: Vec<BealeWord> = vec!["dr", "raced", "pvc", "moon"]
+        .into_iter()
+        .map(BealeWord::new)
+        .collect();
+
+    let got = make_beale_vector();
+
+    assert_eq!(got, wanted);
 }
 
 #[test]
 fn reinhold_rng_test() {
-    let rand_word = make_reinhold_word();
-    assert_eq!(rand_word, ReinholdWord::new("ks"))
+    let wanted: Vec<ReinholdWord> = vec!["douse", "qo", "prune", "moan"]
+        .into_iter()
+        .map(ReinholdWord::new)
+        .collect();
+
+    let got = make_reinhold_vector();
+
+    assert_eq!(got, wanted);
 }

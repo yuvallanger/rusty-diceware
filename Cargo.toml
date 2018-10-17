@@ -1,6 +1,6 @@
 [package]
 name = "diceware"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Yuval Langer <yuval.langer@gmail.com>"]
 build = "build.rs"
 license = "AGPL-3.0"
@@ -9,5 +9,5 @@ description = ""
 
 
 [dependencies]
-rand = "0.3"
-getopts = "0.2"
+rand = "^0.5"
+getopts = "^0.2"

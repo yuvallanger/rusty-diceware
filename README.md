@@ -32,7 +32,7 @@ Inspired by the great passphrase generating solution [Diceware][diceware] invent
 
 [rustlang]: <http://rust-lang.org>
 
-[xkcd-936]: <https://xkcd.com/936/>
+[xkcd-936]: <https://www.explainxkcd.com/wiki/index.php/936>
 
 [minilock]: <http://minilock.io>
 [minilock-github]: <https://github.com/kaepora/miniLock/>

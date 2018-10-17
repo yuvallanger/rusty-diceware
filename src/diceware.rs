@@ -4,13 +4,13 @@ use std::fmt;
 
 include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
 
-#[derive(Debug,Clone,Eq,PartialEq)]
+#[derive(Debug, Clone, Eq, PartialEq, Copy)]
 pub struct BealeWord(&'static str);
 
-#[derive(Debug,Clone,Eq,PartialEq)]
+#[derive(Debug, Clone, Eq, PartialEq, Copy)]
 pub struct ReinholdWord(&'static str);
 
-#[derive(Debug,Clone,Eq,PartialEq)]
+#[derive(Debug, Clone, Eq, PartialEq, Copy)]
 pub struct MiniLockWord(&'static str);
 
 impl BealeWord {
@@ -58,44 +58,68 @@ impl MiniLockWord {
     }
 }
 
+impl rand::distributions::Distribution<BealeWord> for rand::distributions::Standard {
+    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> BealeWord {
+        *rng.choose(&BEALE_WORDLIST).unwrap()
+    }
+}
+
+/*
 impl rand::Rand for BealeWord {
     fn rand<R: rand::Rng>(rng: &mut R) -> BealeWord {
         rng.choose(&BEALE_WORDLIST).unwrap().clone()
     }
 }
+*/
 
 impl fmt::Display for BealeWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-	    &BealeWord(w) => write!(f, "{}", w)
+            &BealeWord(w) => write!(f, "{}", w),
         }
     }
 }
 
+impl rand::distributions::Distribution<ReinholdWord> for rand::distributions::Standard {
+    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> ReinholdWord {
+        *rng.choose(&REINHOLD_WORDLIST).unwrap()
+    }
+}
+
+/*
 impl rand::Rand for ReinholdWord {
     fn rand<R: rand::Rng>(rng: &mut R) -> ReinholdWord {
         rng.choose(&REINHOLD_WORDLIST).unwrap().clone()
     }
 }
+*/
 
 impl fmt::Display for ReinholdWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-	    &ReinholdWord(w) => write!(f, "{}", w)
+            &ReinholdWord(w) => write!(f, "{}", w),
         }
     }
 }
 
+impl rand::distributions::Distribution<MiniLockWord> for rand::distributions::Standard {
+    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> MiniLockWord {
+        *rng.choose(&MINILOCK_WORDLIST).unwrap()
+    }
+}
+
+/*
 impl rand::Rand for MiniLockWord {
     fn rand<R: rand::Rng>(rng: &mut R) -> MiniLockWord {
         rng.choose(&MINILOCK_WORDLIST).unwrap().clone()
     }
 }
+*/
 
 impl fmt::Display for MiniLockWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-	    &MiniLockWord(w) => write!(f, "{}", w)
+            &MiniLockWord(w) => write!(f, "{}", w),
         }
     }
 }

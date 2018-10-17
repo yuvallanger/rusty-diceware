@@ -3,16 +3,16 @@ mod diceware;
 #[cfg(test)]
 mod tests;
 
-extern crate rand;
 extern crate getopts;
+extern crate rand;
 
-use std::env;
+//use std::env;
 
 use getopts::Options;
 use rand::Rng;
+use std::process::exit;
 
-use diceware::{BealeWord, ReinholdWord, MiniLockWord};
-
+//use diceware::{BealeWord, ReinholdWord, MiniLockWord};
 
 fn make_options() -> Options {
     let mut opts = Options::new();
@@ -25,23 +25,25 @@ fn make_options() -> Options {
     opts
 }
 
-
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {} [options]", program);
     print!("{}", opts.usage(&brief));
 }
 
-
 #[cfg(not(test))]
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let program = args[0].clone();
+    let args: Vec<String> = std::env::args().collect();
+    let program = &args[0];
 
     let opts = make_options();
 
     let matches = match opts.parse(&args[1..]) {
-        Ok(m) => { m }
-        Err(f) => { panic!(f.to_string()) }
+        Ok(m) => m,
+        Err(f) => {
+            println!("{}\n", f.to_string());
+            print_usage(&program, opts);
+            exit(-1);
+        }
     };
 
     if matches.opt_present("h") {
@@ -49,7 +51,8 @@ fn main() {
         return;
     };
 
-    let word_num: u64 = matches.opt_str("n")
+    let word_num: u64 = matches
+        .opt_str("n")
         .map_or(8, |n_str| n_str.parse::<u64>().ok().unwrap());
 
     let mut rng = rand::OsRng::new().unwrap();
@@ -59,7 +62,7 @@ fn main() {
             let word: diceware::ReinholdWord = rng.gen();
             print!("{} ", word);
         }
-        println!("");
+        println!();
         if matches.opt_present("entropy") {
             println!("{}", diceware::ReinholdWord::entropyn(word_num))
         }
@@ -71,7 +74,7 @@ fn main() {
             let word: diceware::BealeWord = rng.gen();
             print!("{} ", word);
         }
-        println!("");
+        println!();
         if matches.opt_present("entropy") {
             println!("{}", diceware::BealeWord::entropyn(word_num))
         }
@@ -82,9 +85,8 @@ fn main() {
         let word: diceware::MiniLockWord = rng.gen();
         print!("{} ", word);
     }
-    println!("");
+    println!();
     if matches.opt_present("entropy") {
         println!("{}", diceware::MiniLockWord::entropyn(word_num))
     }
-
 }
