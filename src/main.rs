@@ -9,8 +9,8 @@ extern crate rand;
 //use std::env;
 
 use getopts::Options;
-
-
+use rand::Rng;
+use std::process::exit;
 
 //use diceware::{BealeWord, ReinholdWord, MiniLockWord};
 
