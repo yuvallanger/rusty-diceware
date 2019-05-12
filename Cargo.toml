@@ -1,8 +1,7 @@
 [package]
 name = "diceware"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Yuval Langer <yuval.langer@gmail.com>"]
-build = "build.rs"
 license = "AGPL-3.0"
 repository = "https://gitlab.com/yuvallanger/rusty-diceware"
 description = "A command line diceware, sans dice."
