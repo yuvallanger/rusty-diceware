@@ -1,7 +1,3 @@
-mod diceware;
-
-mod tests;
-
 extern crate getopts;
 extern crate rand;
 
