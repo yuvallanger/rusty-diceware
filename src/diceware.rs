@@ -15,9 +15,8 @@ pub struct ReinholdWord(&'static str);
 pub struct MiniLockWord(&'static str);
 
 impl BealeWord {
-    #[cfg(test)]
     pub fn new(word: &'static str) -> BealeWord {
-        BealeWord(word.clone())
+        BealeWord(word)
     }
 
     pub fn entropy() -> f64 {
@@ -30,9 +29,8 @@ impl BealeWord {
 }
 
 impl ReinholdWord {
-    #[cfg(test)]
     pub fn new(word: &'static str) -> ReinholdWord {
-        ReinholdWord(word.clone())
+        ReinholdWord(word)
     }
 
     pub fn entropy() -> f64 {
@@ -45,9 +43,8 @@ impl ReinholdWord {
 }
 
 impl MiniLockWord {
-    #[cfg(test)]
     pub fn new(word: &'static str) -> MiniLockWord {
-        MiniLockWord(word.clone())
+        MiniLockWord(word)
     }
 
     pub fn entropy() -> f64 {

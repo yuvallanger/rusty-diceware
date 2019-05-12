@@ -1,6 +1,5 @@
 mod diceware;
 
-#[cfg(test)]
 mod tests;
 
 extern crate getopts;
@@ -31,7 +30,6 @@ fn print_usage(program: &str, opts: Options) {
     print!("{}", opts.usage(&brief));
 }
 
-#[cfg(not(test))]
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let program = &args[0];

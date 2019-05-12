@@ -1,6 +1,8 @@
 extern crate rand;
 
-use rand::{Rng, SeedableRng, StdRng};
+use rand::rngs::StdRng;
+use rand::Rng;
+use rand::SeedableRng;
 
 use crate::diceware::{BealeWord, ReinholdWord};
 
