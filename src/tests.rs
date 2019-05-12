@@ -2,7 +2,7 @@ extern crate rand;
 
 use rand::{Rng, SeedableRng, StdRng};
 
-use diceware::{BealeWord, ReinholdWord};
+use crate::diceware::{BealeWord, ReinholdWord};
 
 fn make_beale_vector() -> Vec<BealeWord> {
     let seed: [u8; 32] = [0; 32];
