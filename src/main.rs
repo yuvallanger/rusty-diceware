@@ -9,6 +9,7 @@ extern crate rand;
 //use std::env;
 
 use getopts::Options;
+use rand::rngs::OsRng;
 use rand::Rng;
 use std::process::exit;
 
@@ -55,7 +56,7 @@ fn main() {
         .opt_str("n")
         .map_or(8, |n_str| n_str.parse::<u64>().ok().unwrap());
 
-    let mut rng = rand::OsRng::new().unwrap();
+    let mut rng = OsRng::new().unwrap();
 
     if matches.opt_present("reinhold") {
         for _ in 0..word_num {

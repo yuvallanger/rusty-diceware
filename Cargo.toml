@@ -12,5 +12,5 @@ edition = "2018"
 
 
 [dependencies]
-rand = "^0.5"
+rand = "^0.6"
 getopts = "^0.2"

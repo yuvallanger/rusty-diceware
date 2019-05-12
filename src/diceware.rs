@@ -1,5 +1,6 @@
 extern crate rand;
 
+use rand::seq::SliceRandom;
 use std::fmt;
 
 include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
@@ -59,8 +60,8 @@ impl MiniLockWord {
 }
 
 impl rand::distributions::Distribution<BealeWord> for rand::distributions::Standard {
-    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> BealeWord {
-        *rng.choose(&BEALE_WORDLIST).unwrap()
+    fn sample<R: rand::Rng + ?Sized>(&self, mut rng: &mut R) -> BealeWord {
+        *BEALE_WORDLIST.choose(&mut rng).unwrap()
     }
 }
 
@@ -80,8 +81,8 @@ impl fmt::Display for BealeWord {
 }
 
 impl rand::distributions::Distribution<ReinholdWord> for rand::distributions::Standard {
-    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> ReinholdWord {
-        *rng.choose(&REINHOLD_WORDLIST).unwrap()
+    fn sample<R: rand::Rng + ?Sized>(&self, mut rng: &mut R) -> ReinholdWord {
+        *REINHOLD_WORDLIST.choose(&mut rng).unwrap()
     }
 }
 
@@ -101,8 +102,8 @@ impl fmt::Display for ReinholdWord {
 }
 
 impl rand::distributions::Distribution<MiniLockWord> for rand::distributions::Standard {
-    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> MiniLockWord {
-        *rng.choose(&MINILOCK_WORDLIST).unwrap()
+    fn sample<R: rand::Rng + ?Sized>(&self, mut rng: &mut R) -> MiniLockWord {
+        *MINILOCK_WORDLIST.choose(&mut rng).unwrap()
     }
 }
 
