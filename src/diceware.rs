@@ -74,9 +74,8 @@ impl rand::Rand for BealeWord {
 
 impl fmt::Display for BealeWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            &BealeWord(w) => write!(f, "{}", w),
-        }
+        let BealeWord(w) = self;
+        write!(f, "{}", w)
     }
 }
 
@@ -96,9 +95,8 @@ impl rand::Rand for ReinholdWord {
 
 impl fmt::Display for ReinholdWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            &ReinholdWord(w) => write!(f, "{}", w),
-        }
+        let ReinholdWord(w) = self;
+        write!(f, "{}", w)
     }
 }
 
@@ -118,8 +116,7 @@ impl rand::Rand for MiniLockWord {
 
 impl fmt::Display for MiniLockWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            &MiniLockWord(w) => write!(f, "{}", w),
-        }
+        let MiniLockWord(w) = self;
+        write!(f, "{}", w)
     }
 }
