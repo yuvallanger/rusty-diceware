@@ -4,7 +4,8 @@ use rand::rngs::StdRng;
 use rand::Rng;
 use rand::SeedableRng;
 
-use crate::diceware::{BealeWord, ReinholdWord};
+use diceware::BealeWord;
+use diceware::ReinholdWord;
 
 fn make_beale_vector() -> Vec<BealeWord> {
     let seed: [u8; 32] = [0; 32];
