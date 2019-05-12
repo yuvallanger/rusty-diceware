@@ -1,14 +1,10 @@
 extern crate getopts;
 extern crate rand;
 
-//use std::env;
-
 use getopts::Options;
 use rand::rngs::OsRng;
 use rand::Rng;
 use std::process::exit;
-
-//use diceware::{BealeWord, ReinholdWord, MiniLockWord};
 
 fn make_options() -> Options {
     let mut opts = Options::new();

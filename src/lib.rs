@@ -62,14 +62,6 @@ impl rand::distributions::Distribution<BealeWord> for rand::distributions::Stand
     }
 }
 
-/*
-impl rand::Rand for BealeWord {
-    fn rand<R: rand::Rng>(rng: &mut R) -> BealeWord {
-        rng.choose(&BEALE_WORDLIST).unwrap().clone()
-    }
-}
-*/
-
 impl fmt::Display for BealeWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let BealeWord(w) = self;
@@ -83,14 +75,6 @@ impl rand::distributions::Distribution<ReinholdWord> for rand::distributions::St
     }
 }
 
-/*
-impl rand::Rand for ReinholdWord {
-    fn rand<R: rand::Rng>(rng: &mut R) -> ReinholdWord {
-        rng.choose(&REINHOLD_WORDLIST).unwrap().clone()
-    }
-}
-*/
-
 impl fmt::Display for ReinholdWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let ReinholdWord(w) = self;
@@ -103,14 +87,6 @@ impl rand::distributions::Distribution<MiniLockWord> for rand::distributions::St
         *MINILOCK_WORDLIST.choose(&mut rng).unwrap()
     }
 }
-
-/*
-impl rand::Rand for MiniLockWord {
-    fn rand<R: rand::Rng>(rng: &mut R) -> MiniLockWord {
-        rng.choose(&MINILOCK_WORDLIST).unwrap().clone()
-    }
-}
-*/
 
 impl fmt::Display for MiniLockWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
