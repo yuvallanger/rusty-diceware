@@ -7,7 +7,7 @@ repository = "https://gitlab.com/yuvallanger/rusty-diceware"
 description = "A command line diceware, sans dice."
 keywords = ["diceware", "password", "passphrase", "generator"]
 readme = "README.md"
-edition = "2018"
+edition = "2021"
 
 
 [dependencies]
