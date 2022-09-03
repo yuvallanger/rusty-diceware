@@ -1,17 +1,24 @@
 # rusty-diceware - a password generator using the diceware word lists
-Commandline [Diceware][diceware], sans dice, written in [rustlang][rustlang].
+Commandline [Diceware][diceware] ([Wayback Machine mirror][diceware-wayback]),
+sans dice, written in [rustlang][rustlang].
 
-Please use [Gitlab][gitlab-mirror] for anything whatsoever. Github is just a mirror.
+Please use [Gitlab][gitlab-mirror] for anything whatsoever. Github is just a
+mirror.
 
-Inspired by the great passphrase generating solution [Diceware][diceware] invented by [Arnold G. Reinhold][arnold] and by Randall Monroe’s [xkcd#936][xkcd-936]:
+Inspired by the great passphrase generating solution [Diceware][diceware]
+([Wayback Machine mirror][diceware-wayback]) invented by [Arnold G.
+Reinhold][arnold] ([Wayback Machine mirror][arnold-wayback]) and by Randall
+Monroe’s [xkcd#936][xkcd-936]:
 
-![“Hidden” alt text jokes are a pain in the ass.](/bin/imgs.xkcd.com/comics/password_strength.png)
+![“Hidden” alt text jokes are a pain in the
+ass.](/bin/imgs.xkcd.com/comics/password_strength.png)
 
 ## Featuring
 
 * The original [Reinhold wordlist][reinhold-wordlist-asc].
 * The [Beale wordlist][beale-wordlist-asc].
-* The [MiniLock][minilock] ([github][minilock-github])wordlist. (found in the [phrase.js][minilock-phrase-js] file)
+* The [MiniLock][minilock] ([github][minilock-github])wordlist. (found in the
+  [phrase.js][minilock-phrase-js] file)
 
 ## Mirrors
 
@@ -24,6 +31,9 @@ Inspired by the great passphrase generating solution [Diceware][diceware] invent
 
 [arnold]: <http://world.std.com/~reinhold/>
 [diceware]: <http://world.std.com/~reinhold/diceware.html>
+
+[arnold-wayback]: <https://web.archive.org/web/20220608141106/https://theworld.com/~reinhold/>
+[diceware-wayback]: <https://web.archive.org/web/20220817092807/https://theworld.com/~reinhold/diceware.html>
 
 [beale-wordlist-asc]: <http://world.std.com/~reinhold/beale.wordlist.asc>
 [reinhold-wordlist-asc]: <http://world.std.com/~reinhold/diceware.wordlist.asc>
