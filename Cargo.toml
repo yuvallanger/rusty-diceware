@@ -1,6 +1,6 @@
 [package]
 name = "diceware"
-version = "0.3.1"
+version = "0.3.2"
 authors = ["Yuval Langer <yuvallangerontheroad@gmail.com>"]
 license = "AGPL-3.0"
 repository = "https://gitlab.com/yuvallanger/rusty-diceware"
@@ -11,5 +11,5 @@ edition = "2018"
 
 
 [dependencies]
-rand = "^0.6"
 getopts = "^0.2"
+rand = "^0.8"
