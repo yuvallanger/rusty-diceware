@@ -5,12 +5,12 @@ use std::io::Write;
 use std::path::Path;
 use std::string::String;
 
-fn make_wordlist(contents: &std::string::String) -> Vec<&str> {
+fn make_wordlist(contents: &str) -> Vec<&str> {
     contents
         .split('\n')
         .skip(2)
         .take(7776)
-        .map(|s| s.splitn(2, '\t').nth(1).unwrap())
+        .map(|s| s.split_once('\t').unwrap().1)
         .collect()
 }
 
@@ -22,7 +22,7 @@ fn make_beale_struct(wordlist: Vec<&str>) -> std::string::String {
     let mut output = std::string::String::new();
 
     // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
-    output.push_str("const BEALE_WORDLIST: [BealeWord; 7776] = [\n");
+    output.push_str("static BEALE_WORDLIST: [BealeWord; 7776] = [\n");
     for word in wordlist {
         output.push_str("    BealeWord(\"");
         for c in word.chars() {
@@ -35,14 +35,14 @@ fn make_beale_struct(wordlist: Vec<&str>) -> std::string::String {
         output.push_str("\"),\n");
     }
     output.push_str("];\n");
-    return output;
+    output
 }
 
 fn make_reinhold_struct(wordlist: Vec<&str>) -> std::string::String {
     let mut output = std::string::String::new();
 
     // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
-    output.push_str("const REINHOLD_WORDLIST: [ReinholdWord; 7776] = [\n");
+    output.push_str("static REINHOLD_WORDLIST: [ReinholdWord; 7776] = [\n");
     for word in wordlist {
         output.push_str("    ReinholdWord(\"");
         for c in word.chars() {
@@ -55,14 +55,14 @@ fn make_reinhold_struct(wordlist: Vec<&str>) -> std::string::String {
         output.push_str("\"),\n");
     }
     output.push_str("];\n");
-    return output;
+    output
 }
 
 fn make_minilock_struct(wordlist: Vec<&str>) -> std::string::String {
     let mut output = std::string::String::new();
 
     // 58110 words in the MiniLock wordlist.
-    output.push_str("const MINILOCK_WORDLIST: [MiniLockWord; 58110] = [\n");
+    output.push_str("static MINILOCK_WORDLIST: [MiniLockWord; 58110] = [\n");
     for word in wordlist {
         output.push_str("    MiniLockWord(\"");
         for c in word.chars() {
@@ -75,7 +75,7 @@ fn make_minilock_struct(wordlist: Vec<&str>) -> std::string::String {
         output.push_str("\"),\n");
     }
     output.push_str("];\n");
-    return output;
+    output
 }
 
 fn main() {
