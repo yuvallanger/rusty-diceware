@@ -15,8 +15,10 @@ ass.](/bin/imgs.xkcd.com/comics/password_strength.png)
 
 ## Featuring
 
-* The original [Reinhold wordlist][reinhold-wordlist-asc].
-* The [Beale wordlist][beale-wordlist-asc].
+* The original [Reinhold wordlist][reinhold-wordlist-asc] ([Wayback Machine
+  mirror][reinhold-wordlist-asc-wayback]).
+* The [Beale wordlist][beale-wordlist-asc] ([Wayback Machine
+  mirror][beale-wordlist-asc-wayback]).
 * The [MiniLock][minilock] ([github][minilock-github])wordlist. (found in the
   [phrase.js][minilock-phrase-js] file)
 
@@ -29,15 +31,18 @@ ass.](/bin/imgs.xkcd.com/comics/password_strength.png)
 [gitlab-mirror]: <https://gitlab.com/yuvallanger/rusty-diceware/>
 [github-mirror]: <https://github.com/yuvallanger/rusty-diceware/>
 
-[arnold]: <http://world.std.com/~reinhold/>
-[diceware]: <http://world.std.com/~reinhold/diceware.html>
+[arnold]: <https://theworld.com/~reinhold/>
+[diceware]: <https://theworld.com/~reinhold/diceware.html>
 
 [arnold-wayback]: <https://web.archive.org/web/20220608141106/https://theworld.com/~reinhold/>
 [diceware-wayback]: <https://web.archive.org/web/20220817092807/https://theworld.com/~reinhold/diceware.html>
 
-[beale-wordlist-asc]: <http://world.std.com/~reinhold/beale.wordlist.asc>
-[reinhold-wordlist-asc]: <http://world.std.com/~reinhold/diceware.wordlist.asc>
+[beale-wordlist-asc]: <https://theworld.com/~reinhold/beale.wordlist.asc>
+[reinhold-wordlist-asc]: <https://theworld.com/~reinhold/diceware.wordlist.asc>
 [minilock-phrase-js]: <https://github.com/kaepora/miniLock/blob/71dcf431886068c9ec7f563c3e4158153229b202/src/js/lib/phrase.js>
+
+[beale-wordlist-asc-wayback]: <https://web.archive.org/web/20220602072646/https://theworld.com/~reinhold/beale.wordlist.asc>
+[reinhold-wordlist-asc-wayback]: <https://web.archive.org/web/20220820102521/https://theworld.com/~reinhold/diceware.wordlist.asc>
 
 
 [rustlang]: <http://rust-lang.org>
