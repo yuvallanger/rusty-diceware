@@ -1,6 +1,10 @@
+## v0.3.6
+
+* No, really, fix tests. (Added the `Word` trait)
+
 ## v0.3.5
 
-* Fix tests.
+* Fix tests. (Was broken due to a changed ThreadRng output)
 
 ## v0.3.4
 
