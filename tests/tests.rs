@@ -33,7 +33,7 @@ fn make_reinhold_vector() -> Vec<ReinholdWord> {
 
 #[test]
 fn beale_rng_test() {
-    let wanted: Vec<BealeWord> = vec!["dr", "raced", "pvc", "moon"]
+    let wanted: Vec<BealeWord> = vec!["io", "gavel", "beam", "time"]
         .into_iter()
         .map(BealeWord::new)
         .collect();
@@ -45,7 +45,7 @@ fn beale_rng_test() {
 
 #[test]
 fn reinhold_rng_test() {
-    let wanted: Vec<ReinholdWord> = vec!["douse", "qo", "prune", "moan"]
+    let wanted: Vec<ReinholdWord> = vec!["india", "gamma", "bcd", "theme"]
         .into_iter()
         .map(ReinholdWord::new)
         .collect();
