@@ -5,6 +5,8 @@ sans dice, written in [rustlang][rustlang].
 Please use [Gitlab][gitlab-mirror] for anything whatsoever. Github is just a
 mirror.
 
+[CHANGELOG](/CHANGELOG.md) here.
+
 Inspired by the great passphrase generating solution [Diceware][diceware]
 ([Wayback Machine mirror][diceware-wayback]) invented by [Arnold G.
 Reinhold][arnold] ([Wayback Machine mirror][arnold-wayback]) and by Randall

@@ -1,14 +1,9 @@
 extern crate getopts;
 extern crate rand;
 
-//use std::env;
-
 use getopts::Options;
 use rand::thread_rng;
-use rand::Rng;
 use std::process::exit;
-
-//use diceware::{BealeWord, ReinholdWord, MiniLockWord};
 
 fn make_options() -> Options {
     let mut opts = Options::new();
@@ -24,6 +19,7 @@ fn make_options() -> Options {
         "the delimiter character used to separate the words",
         "DELIM",
     );
+    //opts.optopt("l", "wordlist", "Wordlist to use (minilock (default), reinhold, or beale)", "WORDLIST");
     opts
 }
 
@@ -60,49 +56,36 @@ fn main() {
         .opt_str("d")
         .map_or(' ', |n_str| n_str.parse::<char>().ok().unwrap());
 
+    let is_entropy_printed = matches.opt_present("entropy");
+
     let mut rng = thread_rng();
 
     if word_num != 0 {
         if matches.opt_present("reinhold") {
-            for _ in 0..(word_num - 1) {
-                let word: diceware::ReinholdWord = rng.gen();
-                print!("{}{}", &word, delimiter);
-            }
-            let word: diceware::ReinholdWord = rng.gen();
-            print!("{}", word);
-
-            println!();
-            if matches.opt_present("entropy") {
-                println!("{}", diceware::ReinholdWord::entropyn(word_num))
-            }
+            diceware::print_words::<diceware::ReinholdWord>(
+                &word_num,
+                &delimiter,
+                &is_entropy_printed,
+                &mut rng,
+            );
             return;
         }
 
         if matches.opt_present("beale") {
-            for _ in 0..(word_num - 1) {
-                let word: diceware::BealeWord = rng.gen();
-                print!("{}{}", &word, delimiter);
-            }
-            let word: diceware::BealeWord = rng.gen();
-            print!("{}", word);
-
-            println!();
-            if matches.opt_present("entropy") {
-                println!("{}", diceware::BealeWord::entropyn(word_num))
-            }
+            diceware::print_words::<diceware::BealeWord>(
+                &word_num,
+                &delimiter,
+                &is_entropy_printed,
+                &mut rng,
+            );
             return;
         }
 
-        for _ in 0..(word_num - 1) {
-            let word: diceware::MiniLockWord = rng.gen();
-            print!("{}{}", &word, delimiter);
-        }
-        let word: diceware::MiniLockWord = rng.gen();
-        print!("{}", word);
-
-        println!();
-        if matches.opt_present("entropy") {
-            println!("{}", diceware::MiniLockWord::entropyn(word_num))
-        }
+        diceware::print_words::<diceware::MiniLockWord>(
+            &word_num,
+            &delimiter,
+            &is_entropy_printed,
+            &mut rng,
+        );
     }
 }

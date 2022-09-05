@@ -1,6 +1,8 @@
 extern crate rand;
 
+use rand::rngs::ThreadRng;
 use rand::seq::SliceRandom;
+use rand::Rng;
 use std::fmt;
 
 include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
@@ -14,45 +16,55 @@ pub struct ReinholdWord(&'static str);
 #[derive(Debug, Clone, Eq, PartialEq, Copy)]
 pub struct MiniLockWord(&'static str);
 
-impl BealeWord {
-    pub fn new(word: &'static str) -> BealeWord {
-        BealeWord(word)
+pub trait Word {
+    fn new(word: &'static str) -> Self;
+
+    fn entropy() -> f64;
+
+    fn entropyn(n: u64) -> f64 {
+        Self::entropy() * (n as f64)
+    }
+}
+
+impl Word for BealeWord {
+    fn new(word: &'static str) -> Self {
+        Self(word)
     }
 
-    pub fn entropy() -> f64 {
+    fn entropy() -> f64 {
         (BEALE_WORDLIST.len() as f64).log2()
     }
 
-    pub fn entropyn(n: u64) -> f64 {
-        BealeWord::entropy() * (n as f64)
+    fn entropyn(n: u64) -> f64 {
+        Self::entropy() * (n as f64)
     }
 }
 
-impl ReinholdWord {
-    pub fn new(word: &'static str) -> ReinholdWord {
-        ReinholdWord(word)
+impl Word for ReinholdWord {
+    fn new(word: &'static str) -> Self {
+        Self(word)
     }
 
-    pub fn entropy() -> f64 {
+    fn entropy() -> f64 {
         (REINHOLD_WORDLIST.len() as f64).log2()
     }
 
-    pub fn entropyn(n: u64) -> f64 {
-        ReinholdWord::entropy() * (n as f64)
+    fn entropyn(n: u64) -> f64 {
+        Self::entropy() * (n as f64)
     }
 }
 
-impl MiniLockWord {
-    pub fn new(word: &'static str) -> MiniLockWord {
-        MiniLockWord(word)
+impl Word for MiniLockWord {
+    fn new(word: &'static str) -> Self {
+        Self(word)
     }
 
-    pub fn entropy() -> f64 {
+    fn entropy() -> f64 {
         (MINILOCK_WORDLIST.len() as f64).log2()
     }
 
-    pub fn entropyn(n: u64) -> f64 {
-        MiniLockWord::entropy() * (n as f64)
+    fn entropyn(n: u64) -> f64 {
+        Self::entropy() * (n as f64)
     }
 }
 
@@ -62,17 +74,9 @@ impl rand::distributions::Distribution<BealeWord> for rand::distributions::Stand
     }
 }
 
-/*
-impl rand::Rand for BealeWord {
-    fn rand<R: rand::Rng>(rng: &mut R) -> BealeWord {
-        rng.choose(&BEALE_WORDLIST).unwrap().clone()
-    }
-}
-*/
-
 impl fmt::Display for BealeWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let BealeWord(w) = self;
+        let Self(w) = self;
         write!(f, "{}", w)
     }
 }
@@ -83,17 +87,9 @@ impl rand::distributions::Distribution<ReinholdWord> for rand::distributions::St
     }
 }
 
-/*
-impl rand::Rand for ReinholdWord {
-    fn rand<R: rand::Rng>(rng: &mut R) -> ReinholdWord {
-        rng.choose(&REINHOLD_WORDLIST).unwrap().clone()
-    }
-}
-*/
-
 impl fmt::Display for ReinholdWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let ReinholdWord(w) = self;
+        let Self(w) = self;
         write!(f, "{}", w)
     }
 }
@@ -104,17 +100,30 @@ impl rand::distributions::Distribution<MiniLockWord> for rand::distributions::St
     }
 }
 
-/*
-impl rand::Rand for MiniLockWord {
-    fn rand<R: rand::Rng>(rng: &mut R) -> MiniLockWord {
-        rng.choose(&MINILOCK_WORDLIST).unwrap().clone()
-    }
-}
-*/
-
 impl fmt::Display for MiniLockWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let MiniLockWord(w) = self;
+        let Self(w) = self;
         write!(f, "{}", w)
+    }
+}
+
+pub fn print_words<T: Word + std::fmt::Display>(
+    word_num: &u64,
+    delimiter: &char,
+    is_entropy_printed: &bool,
+    rng: &mut ThreadRng,
+) where
+    rand::distributions::Standard: rand::distributions::Distribution<T>,
+{
+    for _ in 0..(word_num - 1) {
+        let word: T = rng.gen();
+        print!("{}{}", &word, delimiter);
+    }
+    let word: T = rng.gen();
+    print!("{}", word);
+
+    println!();
+    if *is_entropy_printed {
+        println!("{}", T::entropyn(*word_num))
     }
 }
