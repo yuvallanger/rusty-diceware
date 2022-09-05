@@ -2,6 +2,7 @@
 
 * Deduplicate word printing code by using the trait `Word` and moving
   that code into a a generic function which uses that trait.
+* Move to 2021 edition of Rustlang.
 * Add a commented out wordlist command line option for a future
   version.
 * Remove some commented out code.
