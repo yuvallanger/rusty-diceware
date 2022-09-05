@@ -1,3 +1,7 @@
+## v0.3.5
+
+* Fix tests.
+
 ## v0.3.4
 
 * Deduplicate word printing code by using the trait `Word` and moving
