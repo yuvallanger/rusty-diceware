@@ -3,18 +3,8 @@ extern crate rand;
 use rand::rngs::ThreadRng;
 use rand::seq::SliceRandom;
 use rand::Rng;
-use std::fmt;
 
 include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
-
-#[derive(Debug, Clone, Eq, PartialEq, Copy)]
-pub struct BealeWord(&'static str);
-
-#[derive(Debug, Clone, Eq, PartialEq, Copy)]
-pub struct ReinholdWord(&'static str);
-
-#[derive(Debug, Clone, Eq, PartialEq, Copy)]
-pub struct MiniLockWord(&'static str);
 
 pub trait Word {
     fn new(word: &'static str) -> Self;
@@ -26,86 +16,41 @@ pub trait Word {
     }
 }
 
-impl Word for BealeWord {
-    fn new(word: &'static str) -> Self {
-        Self(word)
-    }
+macro_rules! create_generator {
+    ( $gen_name:ident, $wordlist: expr ) => {
+        #[derive(Debug, Clone, Eq, PartialEq, Copy)]
+        pub struct $gen_name(&'static str);
+        impl Word for $gen_name {
+            fn new(word: &'static str) -> Self {
+                $gen_name(word)
+            }
 
-    fn entropy() -> f64 {
-        (BEALE_WORDLIST.len() as f64).log2()
-    }
+            fn entropy() -> f64 {
+                ($wordlist.len() as f64).log2()
+            }
 
-    fn entropyn(n: u64) -> f64 {
-        Self::entropy() * (n as f64)
-    }
+            fn entropyn(n: u64) -> f64 {
+                Self::entropy() * (n as f64)
+            }
+        }
+
+        impl std::fmt::Display for $gen_name {
+            fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+                write!(f, "{}", self.0)
+            }
+        }
+
+        impl rand::distributions::Distribution<$gen_name> for rand::distributions::Standard {
+            fn sample<R: rand::Rng + ?Sized>(&self, mut rng: &mut R) -> $gen_name {
+                *$wordlist.choose(&mut rng).unwrap()
+            }
+        }
+    };
 }
 
-impl Word for ReinholdWord {
-    fn new(word: &'static str) -> Self {
-        Self(word)
-    }
-
-    fn entropy() -> f64 {
-        (REINHOLD_WORDLIST.len() as f64).log2()
-    }
-
-    fn entropyn(n: u64) -> f64 {
-        Self::entropy() * (n as f64)
-    }
-}
-
-impl Word for MiniLockWord {
-    fn new(word: &'static str) -> Self {
-        Self(word)
-    }
-
-    fn entropy() -> f64 {
-        (MINILOCK_WORDLIST.len() as f64).log2()
-    }
-
-    fn entropyn(n: u64) -> f64 {
-        Self::entropy() * (n as f64)
-    }
-}
-
-impl rand::distributions::Distribution<BealeWord> for rand::distributions::Standard {
-    fn sample<R: rand::Rng + ?Sized>(&self, mut rng: &mut R) -> BealeWord {
-        *BEALE_WORDLIST.choose(&mut rng).unwrap()
-    }
-}
-
-impl fmt::Display for BealeWord {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let Self(w) = self;
-        write!(f, "{}", w)
-    }
-}
-
-impl rand::distributions::Distribution<ReinholdWord> for rand::distributions::Standard {
-    fn sample<R: rand::Rng + ?Sized>(&self, mut rng: &mut R) -> ReinholdWord {
-        *REINHOLD_WORDLIST.choose(&mut rng).unwrap()
-    }
-}
-
-impl fmt::Display for ReinholdWord {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let Self(w) = self;
-        write!(f, "{}", w)
-    }
-}
-
-impl rand::distributions::Distribution<MiniLockWord> for rand::distributions::Standard {
-    fn sample<R: rand::Rng + ?Sized>(&self, mut rng: &mut R) -> MiniLockWord {
-        *MINILOCK_WORDLIST.choose(&mut rng).unwrap()
-    }
-}
-
-impl fmt::Display for MiniLockWord {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let Self(w) = self;
-        write!(f, "{}", w)
-    }
-}
+create_generator!(BealeWord, BEALE_WORDLIST);
+create_generator!(ReinholdWord, REINHOLD_WORDLIST);
+create_generator!(MiniLockWord, MINILOCK_WORDLIST);
 
 pub fn print_words<T: Word + std::fmt::Display>(
     word_num: &u64,
