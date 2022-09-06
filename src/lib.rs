@@ -22,7 +22,7 @@ macro_rules! create_generator {
         pub struct $gen_name(&'static str);
         impl Word for $gen_name {
             fn new(word: &'static str) -> Self {
-                $gen_name(word.clone())
+                $gen_name(word)
             }
 
             fn entropy() -> f64 {
