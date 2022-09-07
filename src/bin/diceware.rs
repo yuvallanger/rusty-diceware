@@ -1,6 +1,8 @@
 extern crate getopts;
 extern crate rand;
 
+use std::fs::File;
+use std::io::Read;
 use std::process::exit;
 
 use getopts::Options;
@@ -20,6 +22,7 @@ fn make_options() -> Options {
         "the delimiter character used to separate the words",
         "DELIM",
     );
+    opts.optopt("f", "wordlist-file", "path to a wordlist file", "FILE");
     //opts.optopt("l", "wordlist", "Wordlist to use (minilock (default), reinhold, or beale)", "WORDLIST");
     opts
 }
@@ -62,7 +65,36 @@ fn main() {
     let mut rng = thread_rng();
 
     if word_num != 0 {
-        if matches.opt_present("reinhold") {
+        if let Some(wordlist_filepath) = matches.opt_str("f") {
+            let mut wordlist_file = match File::open(&wordlist_filepath) {
+                Ok(ok) => ok,
+                Err(err) => panic!(
+                    "Unable to open file: {}; due to error: {}",
+                    wordlist_filepath, err
+                ),
+            };
+            let mut wordlist_string = String::new();
+            if let Err(err) = wordlist_file.read_to_string(&mut wordlist_string) {
+                panic!(
+                    "Unable to read file: {}; due to error: {}",
+                    wordlist_filepath, err
+                )
+            }
+
+            let wordlist = wordlist_string
+                .split('\n')
+                .map(|x| x.trim())
+                .filter(|x| x != &"")
+                .collect();
+
+            diceware::print_words(
+                wordlist,
+                &word_num,
+                &delimiter,
+                &is_entropy_printed,
+                &mut rng,
+            );
+        } else if matches.opt_present("reinhold") {
             diceware::print_words(
                 diceware::REINHOLD_WORDLIST.to_vec(),
                 &word_num,
