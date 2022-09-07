@@ -14,15 +14,15 @@ fn make_wordlist(contents: &str) -> Vec<&str> {
         .collect()
 }
 
-fn make_beale_struct(contents: &str) -> std::string::String {
+fn make_beale_wordlist(contents: &str) -> std::string::String {
     let wordlist = make_wordlist(contents);
 
     let mut output = std::string::String::new();
 
     // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
-    output.push_str("static BEALE_WORDLIST: [BealeWord; 7776] = [\n");
+    output.push_str("pub static BEALE_WORDLIST: [&str; 7776] = [\n");
     for word in wordlist {
-        output.push_str("    BealeWord(\"");
+        output.push_str("    \"");
         for c in word.chars() {
             if c == '"' {
                 output.push_str("\\\"");
@@ -30,21 +30,21 @@ fn make_beale_struct(contents: &str) -> std::string::String {
                 output.push(c);
             }
         }
-        output.push_str("\"),\n");
+        output.push_str("\",\n");
     }
-    output.push_str("];\n");
+    output.push_str("];\n\n");
     output
 }
 
-fn make_reinhold_struct(contents: &str) -> std::string::String {
+fn make_reinhold_wordlist(contents: &str) -> std::string::String {
     let wordlist = make_wordlist(contents);
 
     let mut output = std::string::String::new();
 
     // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
-    output.push_str("static REINHOLD_WORDLIST: [ReinholdWord; 7776] = [\n");
+    output.push_str("pub static REINHOLD_WORDLIST: [&str; 7776] = [\n");
     for word in wordlist {
-        output.push_str("    ReinholdWord(\"");
+        output.push_str("    \"");
         for c in word.chars() {
             if c == '"' {
                 output.push_str("\\\"");
@@ -52,21 +52,21 @@ fn make_reinhold_struct(contents: &str) -> std::string::String {
                 output.push(c);
             }
         }
-        output.push_str("\"),\n");
+        output.push_str("\",\n");
     }
     output.push_str("];\n");
     output
 }
 
-fn make_minilock_struct(contents: &str) -> std::string::String {
+fn make_minilock_wordlist(contents: &str) -> std::string::String {
     let wordlist: Vec<&str> = (&contents[1023..543718]).split(',').collect();
 
     let mut output = std::string::String::new();
 
     // 58110 words in the MiniLock wordlist.
-    output.push_str("static MINILOCK_WORDLIST: [MiniLockWord; 58110] = [\n");
+    output.push_str("pub static MINILOCK_WORDLIST: [&str; 58110] = [\n");
     for word in wordlist {
-        output.push_str("    MiniLockWord(\"");
+        output.push_str("    \"");
         for c in word.chars() {
             if c == '"' {
                 panic!("Not supposed to have any double quotes.");
@@ -74,7 +74,7 @@ fn make_minilock_struct(contents: &str) -> std::string::String {
                 output.push(c);
             }
         }
-        output.push_str("\"),\n");
+        output.push_str("\",\n");
     }
     output.push_str("];\n");
     output
@@ -108,12 +108,12 @@ fn main() {
     build_wordlist(
         "beale.wordlist.asc",
         &mut destination_file,
-        &make_beale_struct,
+        &make_beale_wordlist,
     );
     build_wordlist(
         "diceware.wordlist.asc",
         &mut destination_file,
-        &make_reinhold_struct,
+        &make_reinhold_wordlist,
     );
-    build_wordlist("phrase.js", &mut destination_file, &make_minilock_struct);
+    build_wordlist("phrase.js", &mut destination_file, &make_minilock_wordlist);
 }

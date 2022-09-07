@@ -1,9 +1,10 @@
 extern crate getopts;
 extern crate rand;
 
+use std::process::exit;
+
 use getopts::Options;
 use rand::thread_rng;
-use std::process::exit;
 
 fn make_options() -> Options {
     let mut opts = Options::new();
@@ -62,30 +63,29 @@ fn main() {
 
     if word_num != 0 {
         if matches.opt_present("reinhold") {
-            diceware::print_words::<diceware::ReinholdWord>(
+            diceware::print_words(
+                diceware::REINHOLD_WORDLIST.to_vec(),
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
                 &mut rng,
             );
-            return;
-        }
-
-        if matches.opt_present("beale") {
-            diceware::print_words::<diceware::BealeWord>(
+        } else if matches.opt_present("beale") {
+            diceware::print_words(
+                diceware::BEALE_WORDLIST.to_vec(),
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
                 &mut rng,
             );
-            return;
+        } else {
+            diceware::print_words(
+                diceware::MINILOCK_WORDLIST.to_vec(),
+                &word_num,
+                &delimiter,
+                &is_entropy_printed,
+                &mut rng,
+            );
         }
-
-        diceware::print_words::<diceware::MiniLockWord>(
-            &word_num,
-            &delimiter,
-            &is_entropy_printed,
-            &mut rng,
-        );
     }
 }

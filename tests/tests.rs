@@ -1,29 +1,28 @@
 extern crate rand;
 
 use rand::rngs::StdRng;
-use rand::Rng;
+use rand::seq::SliceRandom;
 use rand::SeedableRng;
 
-use diceware::BealeWord;
-use diceware::ReinholdWord;
-use diceware::Word;
+use diceware::BEALE_WORDLIST;
+use diceware::REINHOLD_WORDLIST;
 
 macro_rules! create_test {
-    ( $gen_name: ident, $test_name: ident, $expected: expr ) => {
+    ( $wordlist_name: path, $test_name: ident, $expected: expr ) => {
         #[test]
         fn $test_name() {
-            fn make_vektor() -> Vec<$gen_name> {
+            fn make_vektor<'a>() -> Vec<&'a str> {
                 let seed: [u8; 32] = [0; 32];
                 let mut rng: StdRng = SeedableRng::from_seed(seed);
 
-                let mut vector: Vec<$gen_name> = vec![];
+                let mut vector: Vec<&str> = vec![];
                 for _ in 0..4 {
-                    let word: $gen_name = rng.gen();
+                    let word: &str = $wordlist_name.choose(&mut rng).unwrap();
                     vector.push(word);
                 }
                 vector
             }
-            let wanted: Vec<$gen_name> = $expected.into_iter().map($gen_name::new).collect();
+            let wanted: Vec<&str> = $expected.into_iter().collect();
 
             let got = make_vektor();
 
@@ -33,13 +32,13 @@ macro_rules! create_test {
 }
 
 create_test!(
-    BealeWord,
+    BEALE_WORDLIST,
     beale_rng_test,
     vec!["io", "gavel", "beam", "time"]
 );
 
 create_test!(
-    ReinholdWord,
+    REINHOLD_WORDLIST,
     reinhold_rng_test,
     vec!["india", "gamma", "bcd", "theme"]
 );
