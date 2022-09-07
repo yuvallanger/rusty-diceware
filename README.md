@@ -23,6 +23,7 @@ ass.](/bin/imgs.xkcd.com/comics/password_strength.png)
   mirror][beale-wordlist-asc-wayback]).
 * The [MiniLock][minilock] ([github][minilock-github])wordlist. (found in the
   [phrase.js][minilock-phrase-js] file)
+* The all new `--wordlist-file` command line option which loads and uses your very own newline delimited wordlist file. Inquire within!
 
 ## Mirrors
 
