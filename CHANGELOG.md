@@ -1,3 +1,10 @@
+## v0.3.7
+
+* Deduplicate code implementing the `Word` trait using macros. (Thanks
+  @vbrandl!)
+* Deduplicate tests code using macros. (Thanks @vbrandl, again!)
+* Deduplicate `build.rs` code using a function. How not exciting.
+
 ## v0.3.6
 
 * No, really, fix tests. (Added the `Word` trait)
@@ -8,11 +15,10 @@
 
 ## v0.3.4
 
-* Deduplicate word printing code by using the trait `Word` and moving
-  that code into a a generic function which uses that trait.
-* Move to 2021 edition of Rustlang.
-* Add a commented out wordlist command line option for a future
-  version.
+* Deduplicate word printing code by using the trait `Word` and moving that code
+  into a a generic function which uses that trait.
+* Move to 2021 edition of Rustlang.  Add a commented out wordlist command line
+  option for a future version.
 * Remove some commented out code.
 * Use the `Self` keyword in `impl`s instead of the type's concrete
   name.
