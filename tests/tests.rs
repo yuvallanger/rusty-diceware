@@ -4,8 +4,9 @@ use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
 use rand::SeedableRng;
 
-use diceware::BEALE_WORDLIST;
-use diceware::REINHOLD_WORDLIST;
+use diceware::wordlists::BEALE_WORDLIST;
+use diceware::wordlists::MINILOCK_WORDLIST;
+use diceware::wordlists::REINHOLD_WORDLIST;
 
 macro_rules! create_test {
     ( $wordlist_name: path, $test_name: ident, $expected: expr ) => {
@@ -41,4 +42,10 @@ create_test!(
     REINHOLD_WORDLIST,
     reinhold_rng_test,
     vec!["india", "gamma", "bcd", "theme"]
+);
+
+create_test!(
+    MINILOCK_WORDLIST,
+    minilock_rng_test,
+    vec!["hoed", "femininity", "bedsit", "stabbings"]
 );

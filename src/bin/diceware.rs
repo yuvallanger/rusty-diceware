@@ -1,12 +1,16 @@
 extern crate getopts;
 extern crate rand;
 
-use std::fs::File;
-use std::io::Read;
 use std::process::exit;
 
 use getopts::Options;
 use rand::thread_rng;
+
+use diceware::load_wordlist_file;
+use diceware::print_words;
+use diceware::wordlists::BEALE_WORDLIST;
+use diceware::wordlists::MINILOCK_WORDLIST;
+use diceware::wordlists::REINHOLD_WORDLIST;
 
 fn make_options() -> Options {
     let mut opts = Options::new();
@@ -66,20 +70,7 @@ fn main() {
 
     if word_num != 0 {
         if let Some(wordlist_filepath) = matches.opt_str("f") {
-            let mut wordlist_file = match File::open(&wordlist_filepath) {
-                Ok(ok) => ok,
-                Err(err) => panic!(
-                    "Unable to open file: {}; due to error: {}",
-                    wordlist_filepath, err
-                ),
-            };
-            let mut wordlist_string = String::new();
-            if let Err(err) = wordlist_file.read_to_string(&mut wordlist_string) {
-                panic!(
-                    "Unable to read file: {}; due to error: {}",
-                    wordlist_filepath, err
-                )
-            }
+            let wordlist_string = load_wordlist_file(&wordlist_filepath);
 
             let wordlist = wordlist_string
                 .split('\n')
@@ -87,7 +78,7 @@ fn main() {
                 .filter(|x| x != &"")
                 .collect();
 
-            diceware::print_words(
+            print_words(
                 wordlist,
                 &word_num,
                 &delimiter,
@@ -95,24 +86,24 @@ fn main() {
                 &mut rng,
             );
         } else if matches.opt_present("reinhold") {
-            diceware::print_words(
-                diceware::REINHOLD_WORDLIST.to_vec(),
+            print_words(
+                REINHOLD_WORDLIST.to_vec(),
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
                 &mut rng,
             );
         } else if matches.opt_present("beale") {
-            diceware::print_words(
-                diceware::BEALE_WORDLIST.to_vec(),
+            print_words(
+                BEALE_WORDLIST.to_vec(),
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
                 &mut rng,
             );
         } else {
-            diceware::print_words(
-                diceware::MINILOCK_WORDLIST.to_vec(),
+            print_words(
+                MINILOCK_WORDLIST.to_vec(),
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
