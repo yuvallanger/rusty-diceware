@@ -19,7 +19,7 @@ fn entropyn(wordlist: &[&str], n: u64) -> f64 {
 }
 
 pub fn print_words(
-    wordlist: Vec<&str>,
+    wordlist: &[&str],
     word_num: &u64,
     delimiter: &char,
     is_entropy_printed: &bool,
@@ -34,7 +34,7 @@ pub fn print_words(
 
     println!();
     if *is_entropy_printed {
-        println!("{}", entropyn(&wordlist, *word_num))
+        println!("{}", entropyn(wordlist, *word_num))
     }
 }
 

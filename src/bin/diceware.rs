@@ -76,10 +76,10 @@ fn main() {
                 .split('\n')
                 .map(|x| x.trim())
                 .filter(|x| x != &"")
-                .collect();
+                .collect::<Vec<&str>>();
 
             print_words(
-                wordlist,
+                &wordlist,
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
@@ -87,7 +87,7 @@ fn main() {
             );
         } else if matches.opt_present("reinhold") {
             print_words(
-                REINHOLD_WORDLIST.to_vec(),
+                REINHOLD_WORDLIST.as_ref(),
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
@@ -95,7 +95,7 @@ fn main() {
             );
         } else if matches.opt_present("beale") {
             print_words(
-                BEALE_WORDLIST.to_vec(),
+                BEALE_WORDLIST.as_ref(),
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
@@ -103,7 +103,7 @@ fn main() {
             );
         } else {
             print_words(
-                MINILOCK_WORDLIST.to_vec(),
+                MINILOCK_WORDLIST.as_ref(),
                 &word_num,
                 &delimiter,
                 &is_entropy_printed,
