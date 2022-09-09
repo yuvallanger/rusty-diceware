@@ -83,7 +83,7 @@ fn make_minilock_wordlist(contents: &str) -> std::string::String {
 fn build_wordlist(
     wordlist_filename: &str,
     destination_file: &mut File,
-    make_wordlist_struct: &dyn Fn(&str) -> String,
+    make_wordlist: &dyn Fn(&str) -> String,
 ) {
     let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
     println!("{}", manifest_dir);
@@ -96,7 +96,7 @@ fn build_wordlist(
     wordlist_file.read_to_string(&mut wordlist_string).unwrap();
 
     destination_file
-        .write_all(make_wordlist_struct(&wordlist_string).as_bytes())
+        .write_all(make_wordlist(&wordlist_string).as_bytes())
         .unwrap();
 }
 
