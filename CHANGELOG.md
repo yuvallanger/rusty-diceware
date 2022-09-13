@@ -1,3 +1,11 @@
+## v0.3.9
+
+* Move some code from main function to its own function in `src/lib.rs`.
+* Remove vestigial naming used when we were stupidly overusing the type system.
+* Add test for the MiniLock wordlist.
+* Move predefined wordlists to their own `diceware::wordlists` module.
+* Add a note about the `--wordlist-file` commandline option.
+
 ## v0.3.8
 
 * Switch from a the old and very very weird Struct definition per wordlist to the braindead simple array of `&str`s.
