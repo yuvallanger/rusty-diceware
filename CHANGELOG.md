@@ -1,3 +1,8 @@
+## v0.4.0
+
+* Add the `-l` / `--wordlist` option.
+* Warn that the `--beale` / `--reinhold` / `--minilock` flags would be deprecated in the next minor version.
+
 ## v0.3.9
 
 * Move some code from main function to its own function in `src/lib.rs`.

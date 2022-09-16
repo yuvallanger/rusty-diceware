@@ -15,9 +15,13 @@ use diceware::wordlists::REINHOLD_WORDLIST;
 fn make_options() -> Options {
     let mut opts = Options::new();
     opts.optflag("h", "help", "this help message");
-    opts.optflag("", "minilock", "use the MiniLock wordlist (default)");
-    opts.optflag("", "reinhold", "use the standard wordlist");
-    opts.optflag("", "beale", "use the beale wordlist");
+    opts.optflag(
+        "",
+        "minilock",
+        "[OBSOLETE] use the MiniLock wordlist (default)",
+    );
+    opts.optflag("", "reinhold", "[OBSOLETE] use the standard wordlist");
+    opts.optflag("", "beale", "[OBSOLETE] use the beale wordlist");
     opts.optflag("e", "entropy", "display number of entropy bits");
     opts.optopt("n", "nword", "number of words in a passphrase", "NWORD");
     opts.optopt(
@@ -27,13 +31,26 @@ fn make_options() -> Options {
         "DELIM",
     );
     opts.optopt("f", "wordlist-file", "path to a wordlist file", "FILE");
-    //opts.optopt("l", "wordlist", "Wordlist to use (minilock (default), reinhold, or beale)", "WORDLIST");
+    opts.optopt(
+        "l",
+        "wordlist",
+        "Wordlist to use (minilock (default), reinhold, or beale)",
+        "WORDLIST",
+    );
     opts
 }
 
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {} [options]", program);
     print!("{}", opts.usage(&brief));
+}
+
+fn unknown_wordlist(wordlist_name: &str) -> ! {
+    eprintln!(
+        "Unknown wordlist: {}. Available wordlists: beale, reinhold, or minilock.",
+        wordlist_name,
+    );
+    exit(-1)
 }
 
 fn main() {
@@ -66,6 +83,36 @@ fn main() {
 
     let is_entropy_printed = matches.opt_present("entropy");
 
+    let is_reinhold_flag: bool = matches.opt_present("reinhold");
+    let is_beale_flag: bool = matches.opt_present("beale");
+    let is_minilock_flag: bool = matches.opt_present("minilock");
+    let is_wordlist_flag: bool = is_reinhold_flag | is_beale_flag | is_minilock_flag;
+
+    if is_wordlist_flag {
+        eprintln!("WARNING! The --reinhold, --beale and --minilock flags are deprecated and will be removed in the next minor version release. Use the -l or --wordlist flags instead.");
+    };
+
+    let wordlist_name = if let Some(wordlist_option) = matches.opt_str("l") {
+        if is_wordlist_flag {
+            eprintln!("ERROR! The --reinhold, --beale, and --minilock flags cannot be used together with the -l or --wordlist flags.");
+            exit(-1);
+        }
+        match wordlist_option.to_lowercase().as_ref() {
+            z @ ("beale" | "reinhold" | "minilock") => z,
+            _ => unknown_wordlist(&wordlist_option),
+        }
+        .to_string()
+    } else {
+        if is_reinhold_flag {
+            "reinhold"
+        } else if is_beale_flag {
+            "beale"
+        } else {
+            "minilock"
+        }
+        .to_string()
+    };
+
     let mut rng = thread_rng();
 
     if word_num != 0 {
@@ -85,30 +132,37 @@ fn main() {
                 &is_entropy_printed,
                 &mut rng,
             );
-        } else if matches.opt_present("reinhold") {
-            print_words(
-                REINHOLD_WORDLIST.as_ref(),
-                &word_num,
-                &delimiter,
-                &is_entropy_printed,
-                &mut rng,
-            );
-        } else if matches.opt_present("beale") {
-            print_words(
-                BEALE_WORDLIST.as_ref(),
-                &word_num,
-                &delimiter,
-                &is_entropy_printed,
-                &mut rng,
-            );
         } else {
-            print_words(
-                MINILOCK_WORDLIST.as_ref(),
-                &word_num,
-                &delimiter,
-                &is_entropy_printed,
-                &mut rng,
-            );
-        }
-    }
+            match wordlist_name.as_ref() {
+                "reinhold" => {
+                    print_words(
+                        REINHOLD_WORDLIST.as_ref(),
+                        &word_num,
+                        &delimiter,
+                        &is_entropy_printed,
+                        &mut rng,
+                    );
+                }
+                "beale" => {
+                    print_words(
+                        BEALE_WORDLIST.as_ref(),
+                        &word_num,
+                        &delimiter,
+                        &is_entropy_printed,
+                        &mut rng,
+                    );
+                }
+                "minilock" => {
+                    print_words(
+                        MINILOCK_WORDLIST.as_ref(),
+                        &word_num,
+                        &delimiter,
+                        &is_entropy_printed,
+                        &mut rng,
+                    );
+                }
+                _ => unknown_wordlist(&wordlist_name),
+            }
+        };
+    };
 }

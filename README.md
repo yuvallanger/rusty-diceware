@@ -15,6 +15,27 @@ Monroe’s [xkcd#936][xkcd-936]:
 ![“Hidden” alt text jokes are a pain in the
 ass.](/bin/imgs.xkcd.com/comics/password_strength.png)
 
+## Usage:
+
+```
+Usage: diceware [options]
+
+Options:
+    -h, --help          this help message
+        --minilock      [OBSOLETE] use the MiniLock wordlist (default)
+        --reinhold      [OBSOLETE] use the standard wordlist
+        --beale         [OBSOLETE] use the beale wordlist
+    -e, --entropy       display number of entropy bits
+    -n, --nword NWORD   number of words in a passphrase
+    -d, --delimiter DELIM
+                        the delimiter character used to separate the words
+    -f, --wordlist-file FILE
+                        path to a wordlist file
+    -l, --wordlist WORDLIST
+                        Wordlist to use (minilock (default), reinhold, or
+                        beale)
+```
+
 ## Featuring
 
 * The original [Reinhold wordlist][reinhold-wordlist-asc] ([Wayback Machine
