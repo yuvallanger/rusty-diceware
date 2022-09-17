@@ -5,6 +5,9 @@ use rand::seq::SliceRandom;
 use rand::SeedableRng;
 
 use diceware::wordlists::BEALE_WORDLIST;
+use diceware::wordlists::EFF_LONG_WORDLIST;
+use diceware::wordlists::EFF_SHORT_WORDLIST_1;
+use diceware::wordlists::EFF_SHORT_WORDLIST_2_0;
 use diceware::wordlists::MINILOCK_WORDLIST;
 use diceware::wordlists::REINHOLD_WORDLIST;
 
@@ -48,4 +51,20 @@ create_test!(
     MINILOCK_WORDLIST,
     minilock_rng_test,
     vec!["hoed", "femininity", "bedsit", "stabbings"]
+);
+
+create_test!(
+    EFF_LONG_WORDLIST,
+    eff_long_rng_test,
+    vec!["helpless", "fever", "blooming", "sublease"]
+);
+create_test!(
+    EFF_SHORT_WORDLIST_1,
+    eff_short_1_rng_test,
+    vec!["five", "boat", "shape", "bony"]
+);
+create_test!(
+    EFF_SHORT_WORDLIST_2_0,
+    eff_short_2_0_rng_test,
+    vec!["family", "aseptic", "renovator", "atlas"]
 );

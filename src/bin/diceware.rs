@@ -9,19 +9,15 @@ use rand::thread_rng;
 use diceware::load_wordlist_file;
 use diceware::print_words;
 use diceware::wordlists::BEALE_WORDLIST;
+use diceware::wordlists::EFF_LONG_WORDLIST;
+use diceware::wordlists::EFF_SHORT_WORDLIST_1;
+use diceware::wordlists::EFF_SHORT_WORDLIST_2_0;
 use diceware::wordlists::MINILOCK_WORDLIST;
 use diceware::wordlists::REINHOLD_WORDLIST;
 
 fn make_options() -> Options {
     let mut opts = Options::new();
     opts.optflag("h", "help", "this help message");
-    opts.optflag(
-        "",
-        "minilock",
-        "[OBSOLETE] use the MiniLock wordlist (default)",
-    );
-    opts.optflag("", "reinhold", "[OBSOLETE] use the standard wordlist");
-    opts.optflag("", "beale", "[OBSOLETE] use the beale wordlist");
     opts.optflag("e", "entropy", "display number of entropy bits");
     opts.optopt("n", "nword", "number of words in a passphrase", "NWORD");
     opts.optopt(
@@ -34,7 +30,7 @@ fn make_options() -> Options {
     opts.optopt(
         "l",
         "wordlist",
-        "Wordlist to use (minilock (default), reinhold, or beale)",
+        "Wordlist to use (efflong (default), effshort1, effshort2, minilock, reinhold, or beale)",
         "WORDLIST",
     );
     opts
@@ -47,7 +43,7 @@ fn print_usage(program: &str, opts: Options) {
 
 fn unknown_wordlist(wordlist_name: &str) -> ! {
     eprintln!(
-        "Unknown wordlist: {}. Available wordlists: beale, reinhold, or minilock.",
+        "Unknown wordlist: {}. Available wordlists: efflong (default), effshort1, effshort2, beale, reinhold, or minilock.",
         wordlist_name,
     );
     exit(-1)
@@ -83,34 +79,14 @@ fn main() {
 
     let is_entropy_printed = matches.opt_present("entropy");
 
-    let is_reinhold_flag: bool = matches.opt_present("reinhold");
-    let is_beale_flag: bool = matches.opt_present("beale");
-    let is_minilock_flag: bool = matches.opt_present("minilock");
-    let is_wordlist_flag: bool = is_reinhold_flag | is_beale_flag | is_minilock_flag;
-
-    if is_wordlist_flag {
-        eprintln!("WARNING! The --reinhold, --beale and --minilock flags are deprecated and will be removed in the next minor version release. Use the -l or --wordlist flags instead.");
-    };
-
     let wordlist_name = if let Some(wordlist_option) = matches.opt_str("l") {
-        if is_wordlist_flag {
-            eprintln!("ERROR! The --reinhold, --beale, and --minilock flags cannot be used together with the -l or --wordlist flags.");
-            exit(-1);
-        }
         match wordlist_option.to_lowercase().as_ref() {
-            z @ ("beale" | "reinhold" | "minilock") => z,
+            z @ ("beale" | "reinhold" | "minilock" | "efflong" | "effshort1" | "effshort2") => z,
             _ => unknown_wordlist(&wordlist_option),
         }
         .to_string()
     } else {
-        if is_reinhold_flag {
-            "reinhold"
-        } else if is_beale_flag {
-            "beale"
-        } else {
-            "minilock"
-        }
-        .to_string()
+        "efflong".to_string()
     };
 
     let mut rng = thread_rng();
@@ -134,6 +110,15 @@ fn main() {
             );
         } else {
             match wordlist_name.as_ref() {
+                "efflong" => {
+                    print_words(
+                        EFF_LONG_WORDLIST.as_ref(),
+                        &word_num,
+                        &delimiter,
+                        &is_entropy_printed,
+                        &mut rng,
+                    );
+                }
                 "reinhold" => {
                     print_words(
                         REINHOLD_WORDLIST.as_ref(),
@@ -155,6 +140,24 @@ fn main() {
                 "minilock" => {
                     print_words(
                         MINILOCK_WORDLIST.as_ref(),
+                        &word_num,
+                        &delimiter,
+                        &is_entropy_printed,
+                        &mut rng,
+                    );
+                }
+                "effshort1" => {
+                    print_words(
+                        EFF_SHORT_WORDLIST_1.as_ref(),
+                        &word_num,
+                        &delimiter,
+                        &is_entropy_printed,
+                        &mut rng,
+                    );
+                }
+                "effshort2" => {
+                    print_words(
+                        EFF_SHORT_WORDLIST_2_0.as_ref(),
                         &word_num,
                         &delimiter,
                         &is_entropy_printed,
