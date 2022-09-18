@@ -1,3 +1,7 @@
+## v0.5.2
+
+* Move code from `/src/bin/diceware.rs` and `/src/lib.rs` into `/src/main.rs`.
+
 ## v0.5.1
 
 * Add physical dice roll input flag (`-r` / `--dicerolls`). Accepts input from standard input.
