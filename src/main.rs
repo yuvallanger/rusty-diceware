@@ -1,21 +1,15 @@
 extern crate getopts;
 extern crate rand;
 
+use std::fs::File;
 use std::io::BufRead;
+use std::io::Read;
 use std::process::exit;
 
 use getopts::Options;
+use rand::prelude::SliceRandom;
+use rand::rngs::ThreadRng;
 use rand::thread_rng;
-
-use diceware::entropyn;
-use diceware::load_wordlist_file;
-use diceware::print_words_rng;
-use diceware::wordlists::BEALE_WORDLIST;
-use diceware::wordlists::EFF_LONG_WORDLIST;
-use diceware::wordlists::EFF_SHORT_WORDLIST_1;
-use diceware::wordlists::EFF_SHORT_WORDLIST_2_0;
-use diceware::wordlists::MINILOCK_WORDLIST;
-use diceware::wordlists::REINHOLD_WORDLIST;
 
 fn make_options() -> Options {
     let mut opts = Options::new();
@@ -144,6 +138,50 @@ fn read_rolls() -> Vec<Vec<u8>> {
     rolls
 }
 
+mod wordlists {
+    include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
+}
+
+fn entropy(wordlist: &[&str]) -> f64 {
+    (wordlist.len() as f64).log2()
+}
+
+fn entropyn(wordlist: &[&str], n: u64) -> f64 {
+    entropy(wordlist) * (n as f64)
+}
+
+fn print_words_rng(
+    wordlist: &[&str],
+    word_num: &u64,
+    delimiter: &char,
+    is_entropy_printed: &bool,
+    rng: &mut ThreadRng,
+) {
+    for _ in 0..(word_num - 1) {
+        let word = wordlist.choose(rng).unwrap();
+        print!("{}{}", &word, delimiter);
+    }
+    let word = wordlist.choose(rng).unwrap();
+    print!("{}", word);
+
+    println!();
+    if *is_entropy_printed {
+        println!("{}", entropyn(wordlist, *word_num))
+    }
+}
+
+fn load_wordlist_file(filepath: &str) -> String {
+    let mut wordlist_file = match File::open(&filepath) {
+        Ok(ok) => ok,
+        Err(err) => panic!("Unable to open file: {}; due to error: {}", filepath, err),
+    };
+    let mut wordlist_string = String::new();
+    if let Err(err) = wordlist_file.read_to_string(&mut wordlist_string) {
+        panic!("Unable to read file: {}; due to error: {}", filepath, err)
+    }
+    wordlist_string
+}
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let program = &args[0];
@@ -216,12 +254,12 @@ fn main() {
         };
     } else {
         let wordlist = match wordlist_name.as_ref() {
-            "efflong" => EFF_LONG_WORDLIST.as_ref(),
-            "reinhold" => REINHOLD_WORDLIST.as_ref(),
-            "beale" => BEALE_WORDLIST.as_ref(),
-            "minilock" => MINILOCK_WORDLIST.as_ref(),
-            "effshort1" => EFF_SHORT_WORDLIST_1.as_ref(),
-            "effshort2" => EFF_SHORT_WORDLIST_2_0.as_ref(),
+            "efflong" => wordlists::EFF_LONG_WORDLIST.as_ref(),
+            "reinhold" => wordlists::REINHOLD_WORDLIST.as_ref(),
+            "beale" => wordlists::BEALE_WORDLIST.as_ref(),
+            "minilock" => wordlists::MINILOCK_WORDLIST.as_ref(),
+            "effshort1" => wordlists::EFF_SHORT_WORDLIST_1.as_ref(),
+            "effshort2" => wordlists::EFF_SHORT_WORDLIST_2_0.as_ref(),
             _ => unknown_wordlist(&wordlist_name),
         };
 

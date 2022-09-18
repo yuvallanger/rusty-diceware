@@ -8,7 +8,7 @@ use std::string::String;
 fn make_diceware_wordlist(array_name: String) -> impl Fn(&str) -> String {
     move |contents: &str| {
         // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
-        format!("pub static {}: [&str; 7776] = [\n", array_name)
+        format!("pub(crate) static {}: [&str; 7776] = [\n", array_name)
             + &contents
                 .split('\n')
                 .skip(2)
@@ -33,7 +33,7 @@ fn make_diceware_wordlist(array_name: String) -> impl Fn(&str) -> String {
 
 fn make_minilock_wordlist(contents: &str) -> std::string::String {
     // 58110 words in the MiniLock wordlist.
-    "pub static MINILOCK_WORDLIST: [&str; 58110] = [\n".to_owned()
+    "pub(crate) static MINILOCK_WORDLIST: [&str; 58110] = [\n".to_owned()
         + &contents[1023..543718]
             .split(',')
             .map(|x| format!("    \"{}\",\n", x))
@@ -43,7 +43,7 @@ fn make_minilock_wordlist(contents: &str) -> std::string::String {
 
 fn make_eff_long_wordlist(contents: &str) -> String {
     // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
-    "pub static EFF_LONG_WORDLIST: [&str; 7776] = [\n".to_owned()
+    "pub(crate) static EFF_LONG_WORDLIST: [&str; 7776] = [\n".to_owned()
         + &contents
             .split('\n')
             .take(6 * 6 * 6 * 6 * 6)
@@ -56,7 +56,7 @@ fn make_eff_long_wordlist(contents: &str) -> String {
 fn make_eff_short_wordlist(array_name: String) -> impl Fn(&str) -> String {
     move |contents: &str| {
         // 1296 words = 6*6*6*6; five 6 faced dice throws.
-        format!("pub static {}: [&str; 1296] = [\n", array_name)
+        format!("pub(crate) static {}: [&str; 1296] = [\n", array_name)
             + &contents
                 .split('\n')
                 .take(6 * 6 * 6 * 6)
