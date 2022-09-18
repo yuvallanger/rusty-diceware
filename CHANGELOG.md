@@ -1,6 +1,6 @@
 ## v0.5.2
 
-* Move code from `/src/bin/diceware.rs` and `/src/lib.rs` into `/src/main.rs`.
+* Move code from `/src/bin/diceware.rs`, `/tests/tests.rs`, and `/src/lib.rs` into `/src/main.rs`.
 
 ## v0.5.1
 
