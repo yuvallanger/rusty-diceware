@@ -1,3 +1,7 @@
+## v0.5.3
+
+* Check for legal die digit (not less than 1 not more than 6).
+
 ## v0.5.2
 
 * Move code from `/src/bin/diceware.rs`, `/tests/tests.rs`, and `/src/lib.rs` into `/src/main.rs`.
