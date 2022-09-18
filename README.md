@@ -15,15 +15,18 @@ Inspired by the great passphrase generating solution [Diceware][diceware] ([Wayb
 Usage: diceware [options]
 
 Options:
-    -h, --help          this help message
-    -e, --entropy       display number of entropy bits
-    -n, --nword NWORD   number of words in a passphrase
+    -h, --help          This help message.
+    -e, --entropy       Display number of entropy bits.
+    -r, --dicerolls     Provide results of physical dice rolls. Word per line,
+                        same digit order as in the files, digits between and
+                        including 1 and 6.
+    -n, --nword NWORD   Number of words in a passphrase.
     -d, --delimiter DELIM
-                        the delimiter character used to separate the words
+                        The delimiter character used to separate the words.
     -f, --wordlist-file FILE
-                        path to a wordlist file
+                        Path to a wordlist file.
     -l, --wordlist WORDLIST
-                        Wordlist to use (efflong (default), effshort1,
+                        Wordlist to use. (efflong (default), effshort1,
                         effshort2, minilock, reinhold, or beale)
 ```
 
@@ -37,6 +40,15 @@ Options:
 * The [Beale wordlist][beale-wordlist-asc] ([Wayback Machine mirror][beale-wordlist-asc-wayback]).
 * The [MiniLock][minilock] ([github][minilock-github])wordlist. (found in the [phrase.js][minilock-phrase-js] file)
 * The all new `--wordlist-file` command line option which loads and uses your very own newline delimited wordlist file. Inquire within!
+* Physical dice roll! You can (don't use echo, it will show up in `ps` and show your rolls to other users):
+
+    ```
+    $ cat | diceware -l efflong -r
+    111111
+    111112
+    ^D
+    abacus abdomen
+    ```
 
 ## Mirrors
 

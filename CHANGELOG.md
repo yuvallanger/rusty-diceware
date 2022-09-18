@@ -1,3 +1,13 @@
+## v0.5.1
+
+* Add physical dice roll input flag (`-r` / `--dicerolls`). Accepts input from standard input.
+
+## v0.5.0
+
+* Add the EFF wordlists as shown in <https://www.eff.org/dice>.
+* Make EFF Long Wordlist the default.
+* Remove the `--beale` / `--reinhold` / `--minilock` flags.
+
 ## v0.4.0
 
 * Add the `-l` / `--wordlist` option.

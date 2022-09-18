@@ -10,15 +10,15 @@ pub mod wordlists {
     include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
 }
 
-fn entropy(wordlist: &[&str]) -> f64 {
+pub fn entropy(wordlist: &[&str]) -> f64 {
     (wordlist.len() as f64).log2()
 }
 
-fn entropyn(wordlist: &[&str], n: u64) -> f64 {
+pub fn entropyn(wordlist: &[&str], n: u64) -> f64 {
     entropy(wordlist) * (n as f64)
 }
 
-pub fn print_words(
+pub fn print_words_rng(
     wordlist: &[&str],
     word_num: &u64,
     delimiter: &char,
