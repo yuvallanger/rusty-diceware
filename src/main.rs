@@ -60,11 +60,13 @@ fn rolls_to_word_index(number_of_rolls_needed: u32, rolls: &[u8]) -> usize {
     if number_of_rolls_needed == rolls.len() as u32 {
         let mut word_number = 0;
         for (i, roll) in rolls.iter().rev().enumerate() {
-            word_number += (roll
-                .checked_sub(1)
-                .expect("Must be a die roll result between and including 1 and 6.")
-                as usize)
-                * 6_usize.pow(i as u32);
+            if *roll < 1 || *roll > 6 {
+                panic!(
+                    "Must be a die roll result between and including 1 and 6, not {}",
+                    roll
+                );
+            }
+            word_number += ((roll - 1) as usize) * 6_usize.pow(i as u32);
         }
         word_number
     } else {
