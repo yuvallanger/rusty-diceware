@@ -1,9 +1,10 @@
-# rusty-diceware - a password generator using the diceware word lists
-Commandline [Diceware][diceware] ([Wayback Machine mirror][diceware-wayback]), sans dice, written in [rustlang][rustlang].
+# rusty-diceware - a password generator using wordlists
+
+Commandline [Diceware][diceware] ([Wayback Machine mirror][diceware-wayback]), with or without dice, written in [rustlang][rustlang].
 
 Please use [Gitlab][gitlab-mirror] for anything whatsoever. Github is just a mirror.
 
-[CHANGELOG](/CHANGELOG.md) here.
+[CHANGELOG here](/CHANGELOG.md).
 
 Inspired by the great passphrase generating solution [Diceware][diceware] ([Wayback Machine mirror][diceware-wayback]) invented by [Arnold G. Reinhold][arnold] ([Wayback Machine mirror][arnold-wayback]) and by Randall Monroe’s [xkcd#936][xkcd-936]:
 
@@ -55,6 +56,9 @@ Options:
 * [Gitlab][gitlab-mirror] is the main repository.
 * [Github][github-mirror] is just a mirror.
 
+## Say hello
+
+You can say hello and/or rant about how terrible rusty-diceware is in the [#rusty-diceware:matrix.org](https://matrix.to/#/#rusty-diceware:matrix.org) chat room.
 
 [gitlab-mirror]: <https://gitlab.com/yuvallanger/rusty-diceware/>
 [github-mirror]: <https://github.com/yuvallanger/rusty-diceware/>
