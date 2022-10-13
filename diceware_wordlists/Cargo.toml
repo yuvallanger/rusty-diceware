@@ -8,6 +8,3 @@ description = "A command line diceware, with or without dice."
 keywords = ["diceware", "password", "passphrase", "generator"]
 readme = "README.md"
 edition = "2021"
-
-
-[dependencies]
