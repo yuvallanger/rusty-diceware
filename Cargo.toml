@@ -17,4 +17,4 @@ edition = "2021"
 [dependencies]
 getopts = "^0.2"
 rand = "^0.8"
-diceware_wordlists = { path = "diceware_wordlists" }
+diceware_wordlists = "^0.5"
