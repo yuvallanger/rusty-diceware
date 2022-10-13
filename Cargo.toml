@@ -4,7 +4,7 @@ members = ["diceware_wordlists"]
 
 [package]
 name = "diceware"
-version = "0.5.4"
+version = "0.5.5"
 authors = ["Yuval Langer <yuvallangerontheroad@gmail.com>"]
 license = "AGPL-3.0"
 repository = "https://gitlab.com/yuvallanger/rusty-diceware"
