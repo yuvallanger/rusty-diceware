@@ -56,7 +56,7 @@ Options:
 * [Gitlab][gitlab-mirror] is the main repository.
 * [Github][github-mirror] is just a mirror.
 
-## Say hello
+## Say hello, chat, and/or lurch, aka "community"
 
 You can say hello and/or rant about how terrible rusty-diceware is in the [#rusty-diceware:matrix.org](https://matrix.to/#/#rusty-diceware:matrix.org) chat room.
 
