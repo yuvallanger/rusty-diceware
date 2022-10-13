@@ -1,9 +1,5 @@
-[workspace]
-
-members = ["diceware_wordlists"]
-
 [package]
-name = "diceware"
+name = "diceware_wordlists"
 version = "0.5.4"
 authors = ["Yuval Langer <yuvallangerontheroad@gmail.com>"]
 license = "AGPL-3.0"
@@ -15,6 +11,3 @@ edition = "2021"
 
 
 [dependencies]
-getopts = "^0.2"
-rand = "^0.8"
-diceware_wordlists = { path = "diceware_wordlists" }

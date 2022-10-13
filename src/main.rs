@@ -158,10 +158,6 @@ fn read_rolls() -> Vec<Vec<u8>> {
     rolls
 }
 
-mod wordlists {
-    include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
-}
-
 fn entropy(wordlist: &[&str]) -> f64 {
     (wordlist.len() as f64).log2()
 }
@@ -274,12 +270,12 @@ fn main() {
         };
     } else {
         let wordlist = match wordlist_name.as_ref() {
-            "efflong" => wordlists::EFF_LONG_WORDLIST.as_ref(),
-            "reinhold" => wordlists::REINHOLD_WORDLIST.as_ref(),
-            "beale" => wordlists::BEALE_WORDLIST.as_ref(),
-            "minilock" => wordlists::MINILOCK_WORDLIST.as_ref(),
-            "effshort1" => wordlists::EFF_SHORT_WORDLIST_1.as_ref(),
-            "effshort2" => wordlists::EFF_SHORT_WORDLIST_2_0.as_ref(),
+            "efflong" => diceware_wordlists::EFF_LONG_WORDLIST.as_ref(),
+            "reinhold" => diceware_wordlists::REINHOLD_WORDLIST.as_ref(),
+            "beale" => diceware_wordlists::BEALE_WORDLIST.as_ref(),
+            "minilock" => diceware_wordlists::MINILOCK_WORDLIST.as_ref(),
+            "effshort1" => diceware_wordlists::EFF_SHORT_WORDLIST_1.as_ref(),
+            "effshort2" => diceware_wordlists::EFF_SHORT_WORDLIST_2_0.as_ref(),
             _ => unknown_wordlist(&wordlist_name),
         };
 
@@ -308,7 +304,7 @@ macro_rules! create_test {
     ( $wordlist_name: ident, $test_name: ident, $expected: expr ) => {
         #[test]
         fn $test_name() {
-            use crate::wordlists::$wordlist_name;
+            use diceware_wordlists::$wordlist_name;
             use rand::prelude::SeedableRng;
             use rand::prelude::StdRng;
 

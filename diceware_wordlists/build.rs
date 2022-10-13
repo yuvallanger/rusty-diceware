@@ -8,7 +8,7 @@ use std::string::String;
 fn make_diceware_wordlist(array_name: String) -> impl Fn(&str) -> String {
     move |contents: &str| {
         // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
-        format!("pub(crate) static {}: [&str; 7776] = [\n", array_name)
+        format!("pub static {}: [&str; 7776] = [\n", array_name)
             + &contents
                 .split('\n')
                 .skip(2)
@@ -33,7 +33,7 @@ fn make_diceware_wordlist(array_name: String) -> impl Fn(&str) -> String {
 
 fn make_minilock_wordlist(contents: &str) -> std::string::String {
     // 58110 words in the MiniLock wordlist.
-    "pub(crate) static MINILOCK_WORDLIST: [&str; 58110] = [\n".to_owned()
+    "pub static MINILOCK_WORDLIST: [&str; 58110] = [\n".to_owned()
         + &contents[1023..543718]
             .split(',')
             .map(|x| format!("    \"{}\",\n", x))
@@ -43,7 +43,7 @@ fn make_minilock_wordlist(contents: &str) -> std::string::String {
 
 fn make_eff_long_wordlist(contents: &str) -> String {
     // 7776 words = 6*6*6*6*6; five 6 faced dice throws.
-    "pub(crate) static EFF_LONG_WORDLIST: [&str; 7776] = [\n".to_owned()
+    "pub static EFF_LONG_WORDLIST: [&str; 7776] = [\n".to_owned()
         + &contents
             .split('\n')
             .take(6 * 6 * 6 * 6 * 6)
@@ -56,7 +56,7 @@ fn make_eff_long_wordlist(contents: &str) -> String {
 fn make_eff_short_wordlist(array_name: String) -> impl Fn(&str) -> String {
     move |contents: &str| {
         // 1296 words = 6*6*6*6; five 6 faced dice throws.
-        format!("pub(crate) static {}: [&str; 1296] = [\n", array_name)
+        format!("pub static {}: [&str; 1296] = [\n", array_name)
             + &contents
                 .split('\n')
                 .take(6 * 6 * 6 * 6)
@@ -93,17 +93,17 @@ fn main() {
     let mut destination_file = File::create(&dest_path).unwrap();
 
     build_wordlist(
-        "bin/wordlists/beale.wordlist.asc",
+        "wordlists/beale.wordlist.asc",
         &mut destination_file,
         &make_diceware_wordlist("BEALE_WORDLIST".to_string()),
     );
     build_wordlist(
-        "bin/wordlists/diceware.wordlist.asc",
+        "wordlists/diceware.wordlist.asc",
         &mut destination_file,
         &make_diceware_wordlist("REINHOLD_WORDLIST".to_string()),
     );
     build_wordlist(
-        "bin/wordlists/phrase.js",
+        "wordlists/phrase.js",
         &mut destination_file,
         &make_minilock_wordlist,
     );
@@ -111,17 +111,17 @@ fn main() {
         // They call it "EFF's Long Wordlist" on https://www.eff.org/dice, not "EFF's Large
         // Wordlist", although the file name is different, so I will call it "long" rather than
         // "large".
-        "bin/wordlists/www.eff.org/files/2016/07/18/eff_large_wordlist.txt",
+        "wordlists/www.eff.org/files/2016/07/18/eff_large_wordlist.txt",
         &mut destination_file,
         &make_eff_long_wordlist,
     );
     build_wordlist(
-        "bin/wordlists/www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt",
+        "wordlists/www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt",
         &mut destination_file,
         &make_eff_short_wordlist("EFF_SHORT_WORDLIST_1".to_string()),
     );
     build_wordlist(
-        "bin/wordlists/www.eff.org/files/2016/09/08/eff_short_wordlist_2_0.txt",
+        "wordlists/www.eff.org/files/2016/09/08/eff_short_wordlist_2_0.txt",
         &mut destination_file,
         &make_eff_short_wordlist("EFF_SHORT_WORDLIST_2_0".to_string()),
     );
