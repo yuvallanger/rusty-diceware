@@ -1,9 +1,15 @@
 [package]
 name = "diceware_wordlists"
-version = "0.5.5"
+version = "0.5.6"
 authors = ["Yuval Langer <yuvallangerontheroad@gmail.com>"]
 license = "MIT OR Apache-2.0"
 repository = "https://gitlab.com/yuvallanger/rusty-diceware"
 description = "Wordlists for the command line tool Rusty Diceware"
 keywords = ["diceware", "password", "passphrase", "generator", "wordlists"]
 edition = "2021"
+
+[dependencies]
+serde = { version = "1", optional = true, features = ["derive"], default-features = false }
+
+[features]
+serde = ["dep:serde"]

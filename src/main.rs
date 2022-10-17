@@ -23,7 +23,9 @@ use std::fs::File;
 use std::io::BufRead;
 use std::io::Read;
 use std::process::exit;
+use std::str::FromStr;
 
+use diceware_wordlists::Wordlist;
 use getopts::Options;
 use rand::prelude::SliceRandom;
 use rand::rngs::ThreadRng;
@@ -231,13 +233,12 @@ fn main() {
     let is_entropy_printed = matches.opt_present("entropy");
 
     let wordlist_name = if let Some(wordlist_option) = matches.opt_str("l") {
-        match wordlist_option.to_lowercase().as_ref() {
-            z @ ("beale" | "reinhold" | "minilock" | "efflong" | "effshort1" | "effshort2") => z,
+        match Wordlist::from_str(&wordlist_option.to_lowercase()) {
+            Ok(list) => list,
             _ => unknown_wordlist(&wordlist_option),
         }
-        .to_string()
     } else {
-        "efflong".to_string()
+        Wordlist::default()
     };
 
     let mut rng = thread_rng();
@@ -269,15 +270,7 @@ fn main() {
             );
         };
     } else {
-        let wordlist = match wordlist_name.as_ref() {
-            "efflong" => diceware_wordlists::EFF_LONG_WORDLIST.as_ref(),
-            "reinhold" => diceware_wordlists::REINHOLD_WORDLIST.as_ref(),
-            "beale" => diceware_wordlists::BEALE_WORDLIST.as_ref(),
-            "minilock" => diceware_wordlists::MINILOCK_WORDLIST.as_ref(),
-            "effshort1" => diceware_wordlists::EFF_SHORT_WORDLIST_1.as_ref(),
-            "effshort2" => diceware_wordlists::EFF_SHORT_WORDLIST_2_0.as_ref(),
-            _ => unknown_wordlist(&wordlist_name),
-        };
+        let wordlist = wordlist_name.get_list();
 
         if is_physical_rolls {
             let rolls = read_rolls();
