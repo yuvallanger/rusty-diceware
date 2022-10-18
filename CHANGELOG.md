@@ -1,3 +1,11 @@
+## v0.5.4 to v0.5.6
+
+* Move wordlists to their own permissively licensed `diceware_wordlists` crate.
+
+### In the `diceware_wordlists` crate:
+
+* Jan Christian Grünhage (@jcgruenhage) surrounded the wordlists in enums and added optional serde feature. Thank you!
+
 ## v0.5.3
 
 * Check for legal die digit (not less than 1 not more than 6).

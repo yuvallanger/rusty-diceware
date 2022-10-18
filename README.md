@@ -50,6 +50,7 @@ Options:
     ^D
     abacus abdomen
     ```
+* Wordlists live in their own [diceware_wordlists][diceware_wordlists] crate you can use for your own wicked deeds.
 
 ## Mirrors
 
@@ -62,6 +63,8 @@ You can say hello and/or rant about how terrible rusty-diceware is in the [#rust
 
 [gitlab-mirror]: <https://gitlab.com/yuvallanger/rusty-diceware/>
 [github-mirror]: <https://github.com/yuvallanger/rusty-diceware/>
+
+[diceware_wordlists]: <https://crates.io/crates/diceware_wordlists>
 
 [eff-diceware-guide]: <https://www.eff.org/dice>
 [eff-long-wordlist]: <https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt>
