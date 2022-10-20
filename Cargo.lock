@@ -10,16 +10,17 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "diceware"
-version = "0.5.7"
+version = "0.5.8"
 dependencies = [
  "diceware_wordlists",
  "getopts",
  "rand",
+ "rand_chacha",
 ]
 
 [[package]]
 name = "diceware_wordlists"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "serde",
 ]

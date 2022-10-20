@@ -1,3 +1,12 @@
+# v0.5.8
+
+* Move tests into tests directory.
+* Use a reproducible `rand_chacha::ChaCha12Rng` instead of an `rand::prelude::StdRng`. In the current `rand` version, `0.8.5`, `StdRng` is `ChaCha12Rng`, but it may change in the future, as written in <https://docs.rs/rand/0.8.5/rand/rngs/struct.StdRng.html>.
+
+# v0.5.7
+
+Bumping `diceware_wordlists` version in the dependencies.
+
 ## v0.5.4 to v0.5.6
 
 * Move wordlists to their own permissively licensed `diceware_wordlists` crate.

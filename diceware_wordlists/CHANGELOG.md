@@ -1,3 +1,7 @@
+## v1.1.1
+
+Moving tests into tests directory. Sorry for the spam.
+
 ## v1.1.0
 
 Add tests.
