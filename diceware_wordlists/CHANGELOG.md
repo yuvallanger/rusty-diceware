@@ -1,3 +1,7 @@
+## v1.1.0
+
+Add tests.
+
 ## v1.0.0
 
 No change, just bumping due to a fairly stable looking API.
