@@ -61,6 +61,13 @@ Options:
 
 You can say hello and/or rant about how terrible rusty-diceware is in the [#rusty-diceware:matrix.org](https://matrix.to/#/#rusty-diceware:matrix.org) chat room.
 
+## Tips
+
+If you want to tip for this work, I have set up a Liberapay account:
+
+<script src="https://liberapay.com/yuvallanger/widgets/button.js"></script>
+<noscript><a href="https://liberapay.com/yuvallanger/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
+
 [gitlab-mirror]: <https://gitlab.com/yuvallanger/rusty-diceware/>
 [github-mirror]: <https://github.com/yuvallanger/rusty-diceware/>
 
