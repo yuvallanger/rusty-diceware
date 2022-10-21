@@ -21,6 +21,7 @@ macro_rules! create_test {
     };
 }
 
+#[cfg(feature = "beale")]
 create_test!(
     BEALE_WORDLIST,
     beale_test,
@@ -45,6 +46,7 @@ create_test!(
     ],
 );
 
+#[cfg(feature = "reinhold")]
 create_test!(
     REINHOLD_WORDLIST,
     reinhold_test,
@@ -69,6 +71,7 @@ create_test!(
     ],
 );
 
+#[cfg(feature = "minilock")]
 create_test!(
     MINILOCK_WORDLIST,
     minilock_test,
@@ -104,6 +107,7 @@ create_test!(
     ],
 );
 
+#[cfg(feature = "efflong")]
 create_test!(
     EFF_LONG_WORDLIST,
     eff_long_test,
@@ -138,6 +142,7 @@ create_test!(
         "outer",
     ],
 );
+#[cfg(feature = "effshort1")]
 create_test!(
     EFF_SHORT_WORDLIST_1,
     eff_short_1_test,
@@ -161,6 +166,7 @@ create_test!(
         "sandy", "scary", "shove",
     ],
 );
+#[cfg(feature = "effshort2")]
 create_test!(
     EFF_SHORT_WORDLIST_2_0,
     eff_short_2_0_test,

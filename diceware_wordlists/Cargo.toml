@@ -13,3 +13,11 @@ serde = { version = "1", optional = true, features = ["derive"], default-feature
 
 [features]
 serde = ["dep:serde"]
+
+default = ["efflong", "reinhold", "beale", "minilock", "effshort1", "effshort2"]
+efflong = []
+reinhold = []
+beale = []
+minilock = []
+effshort1 = []
+effshort2 = []

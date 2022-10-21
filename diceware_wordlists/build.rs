@@ -92,21 +92,25 @@ fn main() {
     let dest_path = Path::new(&out_dir).join("diceware.rs");
     let mut destination_file = File::create(&dest_path).unwrap();
 
+    #[cfg(feature = "beale")]
     build_wordlist(
         "wordlists/beale.wordlist.asc",
         &mut destination_file,
         &make_diceware_wordlist("BEALE_WORDLIST".to_string()),
     );
+    #[cfg(feature = "reinhold")]
     build_wordlist(
         "wordlists/diceware.wordlist.asc",
         &mut destination_file,
         &make_diceware_wordlist("REINHOLD_WORDLIST".to_string()),
     );
+    #[cfg(feature = "minilock")]
     build_wordlist(
         "wordlists/phrase.js",
         &mut destination_file,
         &make_minilock_wordlist,
     );
+    #[cfg(feature = "efflong")]
     build_wordlist(
         // They call it "EFF's Long Wordlist" on https://www.eff.org/dice, not "EFF's Large
         // Wordlist", although the file name is different, so I will call it "long" rather than
@@ -115,11 +119,13 @@ fn main() {
         &mut destination_file,
         &make_eff_long_wordlist,
     );
+    #[cfg(feature = "effshort1")]
     build_wordlist(
         "wordlists/www.eff.org/files/2016/09/08/eff_short_wordlist_1.txt",
         &mut destination_file,
         &make_eff_short_wordlist("EFF_SHORT_WORDLIST_1".to_string()),
     );
+    #[cfg(feature = "effshort2")]
     build_wordlist(
         "wordlists/www.eff.org/files/2016/09/08/eff_short_wordlist_2_0.txt",
         &mut destination_file,
