@@ -4,6 +4,7 @@ include!(concat!(env!("OUT_DIR"), "/diceware.rs"));
 
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 #[cfg_attr(feature = "serde", serde(rename_all = "lowercase"))]
+#[derive(Clone)]
 pub enum Wordlist {
     Beale,
     Reinhold,
