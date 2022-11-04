@@ -1,3 +1,7 @@
+## v1.2.1
+
+Derive Clone on Worldlist enum. (Thanks @jcgruenhage!)
+
 ## v1.1.1
 
 Moving tests into tests directory. Sorry for the spam.
